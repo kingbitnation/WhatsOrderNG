@@ -3,136 +3,377 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Phone and Email Capture Demo</title>
+  <title>WhatsOrderNG — Premium WhatsApp Ordering Landing Page</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <meta name="theme-color" content="#0f172a" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html { scroll-behavior: smooth; }
     body {
-      background:
-        radial-gradient(circle at top, rgba(16, 185, 129, 0.12), transparent 25%),
-        radial-gradient(circle at right top, rgba(59, 130, 246, 0.12), transparent 20%),
-        linear-gradient(135deg, #07111f 0%, #0f172a 45%, #111827 100%);
+      background: radial-gradient(circle at top, rgba(16, 185, 129, 0.14), transparent 18%),
+                  radial-gradient(circle at 20% 10%, rgba(16, 185, 129, 0.12), transparent 20%),
+                  linear-gradient(180deg, #020617 0%, #08101f 40%, #07121e 100%);
     }
-    .reveal { opacity: 0; transform: translateY(12px); transition: all .6s ease; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: all .65s cubic-bezier(.16,.7,.43,1.05); }
     .reveal.show { opacity: 1; transform: translateY(0); }
     .glass-card {
       background: rgba(15, 23, 42, 0.78);
       border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.35);
-      backdrop-filter: blur(14px);
+      box-shadow: 0 24px 60px rgba(7, 14, 28, 0.35);
+      backdrop-filter: blur(20px);
     }
     .badge-pill {
       display: inline-flex;
       align-items: center;
-      gap: .45rem;
+      gap: 0.6rem;
       border-radius: 999px;
-      border: 1px solid rgba(134, 239, 172, 0.25);
+      border: 1px solid rgba(16, 185, 129, 0.28);
       background: rgba(16, 185, 129, 0.12);
       color: #bbf7d0;
-      padding: .35rem .7rem;
-      font-size: .85rem;
-      font-weight: 600;
-      letter-spacing: .02em;
+      padding: 0.5rem 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
-    .soft-ring:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 30px rgba(16, 185, 129, 0.18);
+    .hero-phone {
+      width: min(100%, 420px);
+      aspect-ratio: 10 / 18;
+      border-radius: 46px;
+      box-shadow: 0 45px 90px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.82));
+      position: relative;
+      overflow: hidden;
     }
+    .hero-phone::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.16), transparent 22%),
+                  radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.12), transparent 18%);
+      pointer-events: none;
+    }
+    .hero-phone-screen {
+      position: relative;
+      margin: 18px 16px 16px;
+      padding: 1rem;
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .hero-phone-header {
+      padding: 1rem 1.1rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #d1d5db;
+      font-size: 0.88rem;
+    }
+    .hero-phone-body {
+      padding: 0 1.1rem 1rem;
+    }
+    .hero-phone-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 28px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+    .hero-phone-status {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .hero-phone-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .hero-phone-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.9rem;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 0.85rem 0.95rem;
+    }
+    .hero-phone-item span {
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(16, 185, 129, 0.16);
+      color: #a7f3d0;
+      font-size: 0.95rem;
+    }
+    .hero-phone-item strong {
+      color: #f8fafc;
+      font-size: 0.98rem;
+      display: block;
+    }
+    .hero-phone-item small {
+      color: #94a3b8;
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.82rem;
+    }
+    .btn-luxe {
+      box-shadow: 0 20px 45px rgba(16, 185, 129, 0.18);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .section-header h2 {
+      margin: 0;
+    }
+    /* Image & product card styling */
+    .product-img {
+      width: 100%;
+      height: 11.5rem; /* consistent height for cards */
+      object-fit: cover;
+      border-radius: 1rem;
+      transition: opacity .45s ease, transform .35s ease;
+      display: block;
+      background-color: #0f172a; /* fallback bg while loading */
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .product-img.img-loaded {
+      opacity: 1;
+      transform: none;
+    }
+    .product-img svg { width: 100%; height: 100%; display: block; border-radius: inherit; }
+    .card-hover { transition: transform .28s ease, box-shadow .28s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 45px rgba(2,6,23,0.12); }
+    .card-hover:hover .product-img { transform: scale(1.03); }
+    .product-price { font-size: 0.95rem; }
+    .product-img-placeholder { width: 100%; height: 11.5rem; display:block; background:linear-gradient(90deg,#07121e,#0f172a); border-radius:1rem; }
   </style>
 </head>
 <body class="text-slate-100 antialiased">
-  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
-    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-      <div class="text-lg font-semibold text-emerald-300">WhatsOrderNG</div>
-      <nav class="hidden md:flex gap-4 text-sm text-slate-200">
-        <a href="#products" class="hover:text-emerald-300 transition">Products</a>
-        <a href="#how" class="hover:text-emerald-300 transition">How it works</a>
-        <a href="#contact" class="hover:text-emerald-300 transition">Get Yours</a>
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="logo.svg" alt="WhatsOrderNG logo" class="h-10 w-10 rounded-2xl border border-white/10 bg-slate-950 shadow-lg shadow-emerald-500/15" />
+        <div>
+          <p class="text-base font-semibold text-emerald-300">WhatsOrderNG</p>
+          <p class="text-xs text-slate-500">Premium WhatsApp ordering</p>
+        </div>
+      </div>
+      <nav class="hidden lg:flex items-center gap-8 text-sm text-slate-300">
+        <a href="#products" class="transition hover:text-white">Products</a>
+        <a href="#how" class="transition hover:text-white">How it works</a>
+        <a href="#contact" class="transition hover:text-white">Get Yours</a>
       </nav>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="#contact" class="text-slate-300 hover:text-white transition">Book demo</a>
+        <a href="#primary-whatsapp" class="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition">Order now</a>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-4xl mx-auto px-4 py-8">
-    <section class="text-center pt-4">
-      <span class="badge-pill">⚡ Fast setup • Mobile-first • WhatsApp ready</span>
-      <h1 class="mt-4 text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-white">Turn your small business into a stylish WhatsApp ordering hub in 48 hours.</h1>
-      <p class="mt-4 max-w-2xl mx-auto text-slate-300 text-lg">We build fresh, conversion-friendly pages that help customers browse, click, and order without leaving chat.</p>
+  <main class="max-w-6xl mx-auto px-4 py-10 lg:py-14">
+    <section class="grid gap-10 lg:grid-cols-[1.1fr_0.95fr] items-center">
+      <div class="space-y-8">
+        <div class="badge-pill">⚡ Launch in 48 hours • mobile-first • WhatsApp native</div>
+        <div class="space-y-5">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-white">Turn WhatsApp into your premium ordering channel with a beautifully designed storefront.</h1>
+          <p class="max-w-2xl text-lg leading-8 text-slate-300">A polished conversion-first landing page for small businesses that want real orders from chat, built to look premium and perform fast.</p>
+        </div>
 
-      <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-        <a id="primary-whatsapp" href="#" class="bg-gradient-to-r from-emerald-400 via-green-400 to-lime-400 text-slate-950 px-5 py-3 rounded-xl shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition font-semibold">Order on WhatsApp</a>
-        <a href="#products" class="border border-emerald-400/40 bg-white/5 text-emerald-100 px-5 py-3 rounded-xl hover:bg-white/10 transition font-semibold">View Demo Products</a>
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-start">
+          <a id="primary-whatsapp" href="#" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 px-6 py-3 text-base font-semibold text-slate-950 shadow-xl shadow-emerald-500/20 hover:-translate-y-0.5 transition btn-luxe">Order on WhatsApp</a>
+          <a href="#products" class="inline-flex items-center justify-center rounded-full border border-emerald-500/30 bg-white/5 px-6 py-3 text-base font-semibold text-emerald-200 hover:bg-white/10 transition">See product flow</a>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="glass-card rounded-3xl p-5">
+            <p class="text-sm text-emerald-200">Verified orders</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">24/7 WhatsApp flow</h3>
+          </div>
+          <div class="glass-card rounded-3xl p-5">
+            <p class="text-sm text-slate-400">Designed for trust</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">Premium brand experience</h3>
+          </div>
+          <div class="glass-card rounded-3xl p-5">
+            <p class="text-sm text-slate-400">Optimized for mobile</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">Fast checkout flow</h3>
+          </div>
+        </div>
+
+        <div class="mt-2 grid gap-4 sm:grid-cols-2">
+          <div class="glass-card rounded-3xl p-4">
+            <p class="text-sm text-slate-400">Sample Number</p>
+            <p class="mt-2 text-xl font-semibold text-white">+234 704 015 5877</p>
+          </div>
+          <div class="glass-card rounded-3xl p-4">
+            <p class="text-sm text-slate-400">Email demo</p>
+            <p class="mt-2 text-xl font-semibold text-white">Simple setup, instant preview</p>
+          </div>
+        </div>
       </div>
 
-      <p class="mt-4 text-sm text-slate-300">Sample Phone Number: <strong class="text-emerald-300">+2347040155877</strong></p>
-
-      <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left max-w-3xl mx-auto">
-        <article class="glass-card rounded-2xl p-4 soft-ring"> <p class="text-sm text-emerald-200">48-hour launch</p><h3 class="font-semibold text-white mt-1">From idea to live page</h3></article>
-        <article class="glass-card rounded-2xl p-4 soft-ring"> <p class="text-sm text-sky-200">Mobile-first</p><h3 class="font-semibold text-white mt-1">Built for shoppers on the go</h3></article>
-        <article class="glass-card rounded-2xl p-4 soft-ring"> <p class="text-sm text-amber-200">WhatsApp ready</p><h3 class="font-semibold text-white mt-1">Orders start in chat instantly</h3></article>
-      </div>
-
-      <!-- Email capture visible without JS -->
-      <div class="mt-6 mx-auto max-w-xl">
-        <form id="email-capture-form" name="email-capture" method="POST" data-netlify="true" class="flex gap-2 glass-card p-3 rounded-2xl">
-          <input type="hidden" name="form-name" value="email-capture" />
-          <input type="email" name="email" id="email-input" required placeholder="Enter your email to get a demo link" class="flex-1 px-3 py-2 rounded-xl border border-white/10 bg-slate-900/80 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60" />
-          <button type="submit" class="bg-gradient-to-r from-emerald-400 to-green-500 text-slate-950 px-4 py-2 rounded-xl font-semibold shadow-lg shadow-emerald-500/20">Get Demo</button>
-        </form>
-        <p id="email-feedback" class="mt-2 text-sm text-emerald-200 hidden">Thanks! We'll send a demo link soon.</p>
+      <div class="relative mx-auto max-w-[420px]">
+        <div class="hero-phone">
+          <div class="hero-phone-screen">
+            <div class="screen-content">
+              <div class="hero-phone-header">
+                <span class="hero-phone-status">WhatsOrderNG</span>
+                <span class="hero-phone-status">Live preview</span>
+              </div>
+              <div class="hero-phone-body">
+                <div class="hero-phone-card">
+                  <div class="flex items-center justify-between gap-3">
+                    <div>
+                      <p class="text-slate-300 text-sm" id="hero-order-label">New WhatsApp order</p>
+                      <p class="mt-1 font-semibold text-white" id="hero-order-title">Chicken Shawarma • ₦2,500</p>
+                    </div>
+                    <span id="hero-order-status" class="inline-flex items-center justify-center rounded-full bg-emerald-400/15 px-3 py-1 text-emerald-200 text-xs font-semibold">Received</span>
+                  </div>
+                </div>
+                  <div class="hero-phone-card">
+                    <img id="hero-preview-image" loading="lazy" class="product-img img-loaded rounded-[2rem] h-44 w-full object-cover" src="./assets/images/hero-1.jpg" alt="Premium order item preview" />
+                    
+                </div>
+                <div class="hero-phone-list" id="hero-phone-list">
+                <div class="hero-phone-item">
+                  <span>1</span>
+                  <div>
+                    <strong>Chicken Shawarma</strong>
+                    <small>Ready for pickup in 12 mins</small>
+                  </div>
+                </div>
+                <div class="hero-phone-item">
+                  <span>2</span>
+                  <div>
+                    <strong>Phone Case</strong>
+                    <small>Fast delivery with chat confirmation</small>
+                  </div>
+                </div>
+                <div class="hero-phone-item">
+                  <span>3</span>
+                  <div>
+                    <strong>Perfume</strong>
+                    <small>Sales flow that feels premium</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pointer-events-none absolute -right-10 top-12 h-28 w-28 rounded-full bg-emerald-400/10 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-8 left-6 h-24 w-24 rounded-full bg-sky-400/10 blur-3xl"></div>
       </div>
     </section>
 
-    <!-- Trust -->
-    <section class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <article class="reveal glass-card rounded-2xl p-4 soft-ring">
-        <h3 class="font-semibold text-white">Fast delivery (48 hours)</h3>
-        <p class="text-sm text-slate-300 mt-1">Working ordering site in 48 hours.</p>
+    <!-- Premium highlights -->
+    <section class="mt-12 grid gap-6 lg:grid-cols-3">
+      <article class="reveal glass-card rounded-[2rem] p-7 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-emerald-300">Premium storefront</p>
+        <h3 class="mt-3 text-2xl font-semibold text-white">A launch-ready WhatsApp ordering page</h3>
+        <p class="mt-3 text-slate-400">Designed to look modern, feel premium, and capture more conversations.</p>
       </article>
-      <article class="reveal glass-card rounded-2xl p-4 soft-ring">
-        <h3 class="font-semibold text-white">Mobile-friendly design</h3>
-        <p class="text-sm text-slate-300 mt-1">Optimized for phones — where customers are.</p>
+      <article class="reveal glass-card rounded-[2rem] p-7 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-sky-300">Conversion focus</p>
+        <h3 class="mt-3 text-2xl font-semibold text-white">Fast action CTAs</h3>
+        <p class="mt-3 text-slate-400">Every button and section is placed to drive clicks straight to WhatsApp.</p>
       </article>
-      <article class="reveal glass-card rounded-2xl p-4 soft-ring">
-        <h3 class="font-semibold text-white">Built for Nigerian small businesses</h3>
-        <p class="text-sm text-slate-300 mt-1">Naira pricing and local-first approach.</p>
+      <article class="reveal glass-card rounded-[2rem] p-7 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-amber-300">Local growth</p>
+        <h3 class="mt-3 text-2xl font-semibold text-white">Naira-ready experience</h3>
+        <p class="mt-3 text-slate-400">Built for Nigerian businesses that want a trusted, high-end online presence.</p>
       </article>
+    </section>
+
+    <section class="mt-12">
+      <div class="glass-card rounded-[2rem] p-8 soft-ring">
+        <div class="section-header">
+          <div>
+            <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Stay in the loop</p>
+            <h2 class="mt-3 text-3xl font-semibold text-white">Get a demo link to see the full ordering flow.</h2>
+          </div>
+        </div>
+        <form id="email-capture-form" name="email-capture" method="POST" data-netlify="true" class="mt-8 grid gap-4 sm:grid-cols-[1fr_auto]">
+          <input type="hidden" name="form-name" value="email-capture" />
+          <input type="email" name="email" id="email-input" required placeholder="Enter your email to get a demo link" class="w-full rounded-3xl border border-white/10 bg-slate-950/80 px-5 py-4 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40" />
+          <button type="submit" class="rounded-3xl bg-gradient-to-r from-emerald-400 to-green-500 px-6 py-4 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5 transition">Send demo</button>
+        </form>
+        <p id="email-feedback" class="mt-3 text-sm text-emerald-200 hidden">Thanks! We'll send a demo link soon.</p>
+      </div>
     </section>
 
     <!-- Products -->
-    <section id="products" class="mt-10">
-      <h2 class="text-2xl font-semibold text-white">Products</h2>
-      <p class="text-slate-300 mt-1">A quick preview of what your storefront can look like.</p>
-      <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        <!-- eight products -->
+    <section id="products" class="mt-14">
+      <div class="section-header mb-6">
+        <div>
+          <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Storefront preview</p>
+          <h2 class="mt-3 text-3xl font-semibold text-white">Beautiful product cards for quick ordering</h2>
+        </div>
+        <p class="max-w-xl text-slate-400">These mockup items show how easy it feels to browse and order from WhatsApp-first pages.</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <template id="product-template">
-          <article class="reveal glass-card p-4 rounded-2xl flex flex-col soft-ring">
-            <div class="h-28 rounded-xl mb-3 flex items-center justify-center text-emerald-200 bg-gradient-to-br from-emerald-400/10 via-slate-800 to-sky-400/10">✨</div>
-            <div class="flex-1">
+          <article class="reveal glass-card rounded-[2rem] p-6 flex flex-col justify-between soft-ring card-hover">
+            <div>
+              <img loading="lazy" class="product-img img-loaded h-44 w-full rounded-[2rem] mb-5 object-cover" src="./assets/images/product-fallback.svg" alt="Product image" />
               <h4 class="font-semibold text-white product-name"></h4>
-              <p class="text-emerald-300 font-bold mt-1 product-price"></p>
+              <p class="mt-3 text-emerald-300 font-bold product-price"></p>
             </div>
-            <a class="order-btn mt-3 bg-gradient-to-r from-emerald-400 to-green-500 text-slate-950 text-center py-2 rounded-xl font-semibold hover:scale-[1.02] transition" href="#">Order on WhatsApp</a>
+            <a class="order-btn mt-7 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-green-500 px-4 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5 transition" href="#">Order on WhatsApp</a>
           </article>
         </template>
       </div>
     </section>
 
     <!-- How it works -->
-    <section id="how" class="mt-10">
-      <h2 class="text-2xl font-semibold text-white">How it works</h2>
-      <p class="text-slate-300 mt-1">Simple steps to get orders flowing from day one.</p>
-      <ol class="mt-4 space-y-3">
-        <li class="reveal glass-card p-4 rounded-2xl soft-ring">1. Browse products and pick what your customers love.</li>
-        <li class="reveal glass-card p-4 rounded-2xl soft-ring">2. Click WhatsApp order and open the customer chat instantly.</li>
-        <li class="reveal glass-card p-4 rounded-2xl soft-ring">3. Get instant response and close the sale in the same chat.</li>
-      </ol>
+    <section id="how" class="mt-14">
+      <div class="section-header mb-6">
+        <div>
+          <p class="text-sm uppercase tracking-[0.22em] text-slate-400">How it works</p>
+          <h2 class="mt-3 text-3xl font-semibold text-white">Simple steps from landing page to WhatsApp order</h2>
+        </div>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="reveal glass-card rounded-[2rem] p-6 soft-ring">
+          <div class="text-emerald-300 text-3xl">1</div>
+          <h3 class="mt-4 text-xl font-semibold text-white">Showcase products</h3>
+          <p class="mt-3 text-slate-400">Use attractive cards and clear pricing so customers know what to buy instantly.</p>
+        </article>
+        <article class="reveal glass-card rounded-[2rem] p-6 soft-ring">
+          <div class="text-emerald-300 text-3xl">2</div>
+          <h3 class="mt-4 text-xl font-semibold text-white">One-click WhatsApp order</h3>
+          <p class="mt-3 text-slate-400">Send a prefilled message directly to WhatsApp so the order flow feels effortless.</p>
+        </article>
+        <article class="reveal glass-card rounded-[2rem] p-6 soft-ring">
+          <div class="text-emerald-300 text-3xl">3</div>
+          <h3 class="mt-4 text-xl font-semibold text-white">Close faster</h3>
+          <p class="mt-3 text-slate-400">Customers get instant confirmation in chat, turning interest into purchase quickly.</p>
+        </article>
+      </div>
     </section>
 
     <!-- Final CTA -->
-    <section id="contact" class="mt-10 glass-card p-6 rounded-3xl text-center soft-ring">
-      <h3 class="text-xl font-semibold text-white">Want a website like this for your business?</h3>
-      <p class="mt-2 text-slate-300">We set it up and get you orders on WhatsApp in 48 hours.</p>
-      <a id="final-cta" href="#" class="mt-4 inline-block bg-gradient-to-r from-emerald-400 to-green-500 text-slate-950 px-6 py-3 rounded-xl font-semibold shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition">Get Yours in 48 Hours</a>
+    <section id="contact" class="mt-14 glass-card rounded-[2.5rem] p-10 text-center soft-ring">
+      <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Ready to upgrade your order flow?</p>
+      <h3 class="mt-4 text-4xl font-semibold text-white">Get a premium WhatsApp ordering landing page today.</h3>
+      <p class="mt-4 max-w-2xl mx-auto text-slate-400">We build your page, connect it to WhatsApp, and make sure it looks like a modern startup product.</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-center">
+        <a id="final-cta" href="#" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-green-500 px-8 py-4 text-base font-semibold text-slate-950 shadow-2xl shadow-emerald-500/25 hover:-translate-y-0.5 transition">Launch my page</a>
+        <a href="#email-capture-form" class="inline-flex items-center justify-center rounded-full border border-slate-600/50 bg-white/5 px-8 py-4 text-base font-semibold text-slate-200 hover:bg-white/10 transition">Request a demo</a>
+      </div>
     </section>
   </main>
 
@@ -157,25 +398,116 @@
     document.getElementById('final-cta').href = makeWaLink(PHONE_NUMBER, 'Hello, I want a website like the demo.');
     document.getElementById('floating-wa').href = makeWaLink(PHONE_NUMBER, 'Hello, I want to order / enquire about a website.');
 
-    // product data and render
+    // Inline SVG assets (embedded to avoid external/network fetches)
+    const INLINE_SVGS = {
+      productFallback: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0ea5a9"/><stop offset="1" stop-color="#03695b"/></linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#0f172a" />
+  <rect x="20" y="20" width="760" height="560" rx="22" fill="url(#g)" opacity="0.18" />
+  <g fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="36" text-anchor="middle">
+    <text x="400" y="320">Image unavailable</text>
+  </g>
+</svg>`,
+      chickenShawarma: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="a" x1="0" x2="1"><stop offset="0" stop-color="#f97316"/><stop offset="1" stop-color="#f43f5e"/></linearGradient></defs>
+  <rect width="100%" height="100%" fill="#07121e" />
+  <rect x="40" y="40" width="720" height="520" rx="28" fill="url(#a)" opacity="0.12" />
+  <text x="400" y="320" fill="#fff" font-size="36" font-family="Arial" text-anchor="middle">Chicken Shawarma</text>
+</svg>`,
+      sneakers: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#08101f" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Sneakers</text>
+</svg>`,
+      hoodie: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Hoodie</text>
+</svg>`,
+      wristwatch: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Wristwatch</text>
+</svg>`,
+      phoneCase: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Phone Case</text>
+</svg>`,
+      bag: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Bag</text>
+</svg>`,
+      perfume: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Perfume</text>
+</svg>`,
+      cap: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Cap</text>
+</svg>`
+    };
+    // product data and render (local JPGs)
     const products = [
-      { name: 'Chicken Shawarma', price: '₦2,500' },
-      { name: 'Sneakers', price: '₦18,000' },
-      { name: 'Hoodie', price: '₦15,000' },
-      { name: 'Wristwatch', price: '₦7,500' },
-      { name: 'Phone Case', price: '₦3,000' },
-      { name: 'Bag', price: '₦12,000' },
-      { name: 'Perfume', price: '₦10,000' },
-      { name: 'Cap', price: '₦5,000' }
+      { name: 'Chicken Shawarma', price: '₦2,500', image: './assets/images/chicken-shawarma.jpg', fallback: './assets/images/chicken-shawarma.svg' },
+      { name: 'Sneakers', price: '₦18,000', image: './assets/images/sneakers.jpg', fallback: './assets/images/sneakers.svg' },
+      { name: 'Hoodie', price: '₦15,000', image: './assets/images/hoodie.jpg', fallback: './assets/images/hoodie.svg' },
+      { name: 'Wristwatch', price: '₦7,500', image: './assets/images/wristwatch.jpg', fallback: './assets/images/wristwatch.svg' },
+      { name: 'Phone Case', price: '₦3,000', image: './assets/images/phone-case.jpg', fallback: './assets/images/phone-case.svg' },
+      { name: 'Bag', price: '₦12,000', image: './assets/images/bag.jpg', fallback: './assets/images/bag.svg' },
+      { name: 'Perfume', price: '₦10,000', image: './assets/images/perfume.jpg', fallback: './assets/images/perfume.svg' },
+      { name: 'Cap', price: '₦5,000', image: './assets/images/cap.jpg', fallback: './assets/images/cap.svg' }
     ];
 
     const grid = document.querySelector('#products .grid') || document.querySelector('#products > div');
     const tpl = document.getElementById('product-template');
 
+    // Helper: set image with fallback and fade-in on load
+    function setImageWithFallback(img, src, fallback) {
+      img.alt = img.alt || '';
+      img.classList.remove('img-loaded');
+      img.style.backgroundColor = '#0f172a';
+
+      function showSrc(url) {
+        console.debug('[image] setting src', url, 'for', img.alt || '(no alt)', 'fallback:', fallback);
+        img.src = url;
+        img.classList.add('img-loaded');
+      }
+
+      const loader = new Image();
+      loader.crossOrigin = 'anonymous';
+      loader.onload = () => showSrc(src);
+      loader.onerror = () => {
+        console.warn('[image] failed to load', src, 'using fallback', fallback);
+        if (img.src !== fallback) {
+          showSrc(fallback);
+        } else {
+          img.classList.add('img-loaded');
+        }
+      };
+      loader.src = src;
+
+      // in case browser already cached current image
+      if (img.complete && img.naturalWidth !== 0) img.classList.add('img-loaded');
+    }
+
     products.forEach(p => {
       const node = tpl.content.cloneNode(true);
       node.querySelector('.product-name').textContent = p.name;
       node.querySelector('.product-price').textContent = p.price;
+      const img = node.querySelector('img.product-img');
+      img.alt = p.name;
+      img.loading = 'lazy';
+      img.style.backgroundColor = '#0b1220';
+      // preload and swap to local JPG, fall back to SVG placeholder
+      setImageWithFallback(img, p.image, p.fallback || './assets/images/product-fallback.svg');
       const btn = node.querySelector('.order-btn');
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -184,6 +516,79 @@
       });
       grid.appendChild(node);
     });
+
+    const heroPreviewItems = [
+      {
+        label: 'New WhatsApp order',
+        title: 'Chicken Shawarma • ₦2,500',
+        status: 'Received',
+        image: './assets/images/hero-1.jpg',
+        fallback: './assets/images/chicken-shawarma.svg',
+        list: [
+          { title: 'Chicken Shawarma', subtitle: 'Ready for pickup in 12 mins' },
+          { title: 'Phone Case', subtitle: 'Fast delivery with chat confirmation' },
+          { title: 'Perfume', subtitle: 'Sales flow that feels premium' }
+        ]
+      },
+      {
+        label: 'New WhatsApp order',
+        title: 'Luxury Sneakers • ₦18,000',
+        status: 'Confirmed',
+        image: './assets/images/hero-2.jpg',
+        fallback: './assets/images/sneakers.svg',
+        list: [
+          { title: 'Sneakers', subtitle: 'Same-day delivery available' },
+          { title: 'Capsule Review', subtitle: 'Fast chat checkout' },
+          { title: 'Gift wrap', subtitle: 'Elegant packaging option' }
+        ]
+      },
+      {
+        label: 'New WhatsApp order',
+        title: 'Perfume Set • ₦10,000',
+        status: 'Preparing',
+        image: './assets/images/hero-3.jpg',
+        fallback: './assets/images/perfume.svg',
+        list: [
+          { title: 'Perfume', subtitle: 'Ready in 2 minutes' },
+          { title: 'Gift note', subtitle: 'Personalized message available' },
+          { title: 'Fast dispatch', subtitle: 'Priority delivery' }
+        ]
+      }
+    ];
+
+    const heroOrderLabel = document.getElementById('hero-order-label');
+    const heroOrderTitle = document.getElementById('hero-order-title');
+    const heroOrderStatus = document.getElementById('hero-order-status');
+    const heroPreviewImage = document.getElementById('hero-preview-image');
+    const heroPhoneItems = document.querySelectorAll('#hero-phone-list .hero-phone-item');
+
+    // heroPreviewImage is an inline SVG container now; no native lazy loading
+
+    let heroPreviewIndex = 0;
+    function updateHeroPreview(index) {
+      const item = heroPreviewItems[index];
+      if (!item) return;
+      heroOrderLabel.textContent = item.label;
+      heroOrderTitle.textContent = item.title;
+      heroOrderStatus.textContent = item.status;
+      // inject inline SVG for hero preview (no external fetches)
+      heroPreviewImage.innerHTML = item.image || item.fallback || INLINE_SVGS.productFallback;
+      heroPreviewImage.classList.add('img-loaded');
+      heroPreviewImage.setAttribute('aria-label', item.title + ' preview');
+      heroPhoneItems.forEach((node, idx) => {
+        const [titleEl, subtitleEl] = node.querySelectorAll('strong, small');
+        if (item.list[idx]) {
+          titleEl.textContent = item.list[idx].title;
+          subtitleEl.textContent = item.list[idx].subtitle;
+        }
+      });
+    }
+
+    updateHeroPreview(heroPreviewIndex);
+    setInterval(() => {
+      heroPreviewIndex = (heroPreviewIndex + 1) % heroPreviewItems.length;
+      updateHeroPreview(heroPreviewIndex);
+    }, 4000);
 
     // simple reveal animations
     const obs = new IntersectionObserver((entries) => {
