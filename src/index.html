@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WhatsOrderNG — Premium WhatsApp Ordering Landing Page</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <meta name="theme-color" content="#0f172a" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, rgba(16, 185, 129, 0.16), transparent 18%),
+                  radial-gradient(circle at 15% 12%, rgba(56, 189, 248, 0.10), transparent 24%),
+                  linear-gradient(180deg, #020617 0%, #08101f 36%, #070f1c 100%);
+      color: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    ::selection { background: rgba(16, 185, 129, 0.35); color: #f8fafc; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(8, 12, 29, 0.86);
+      backdrop-filter: blur(18px);
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,0.04);
+    }
+    .site-header nav a,
+    .site-header .nav-link {
+      color: #cbd5e1;
+      transition: color .25s ease, transform .25s ease;
+    }
+    .site-header nav a:hover,
+    .site-header .nav-link:hover {
+      color: #f8fafc;
+      transform: translateY(-1px);
+    }
+    .nav-toggle {
+      width: 3rem;
+      height: 3rem;
+      display: grid !important;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #a7f3d0;
+      transition: transform .25s ease, background .25s ease;
+    }
+    #mobile-menu { display: block !important; }
+    #mobile-menu.hidden { display: none !important; }
+    #mobile-menu.open { display: block !important; }
+    .nav-toggle:hover {
+      transform: translateY(-1px);
+      background: rgba(15, 23, 42, 0.88);
+    }
+    #mobile-menu {
+      position: fixed;
+      right: 1rem;
+      top: 5.5rem;
+      width: min(92vw, 18rem);
+      padding: 1.25rem;
+      border-radius: 28px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(8, 12, 29, 0.96);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 40px 70px rgba(2, 7, 23, 0.28);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-12px);
+      transition: opacity .3s ease, transform .3s ease, visibility .3s;
+    }
+    #mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    #mobile-menu a {
+      display: block;
+      padding: 0.85rem 0;
+      color: #cbd5e1;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    #mobile-menu a:last-child { border-bottom: none; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+    .glass-card {
+      background: rgba(10, 15, 28, 0.86);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 30px 80px rgba(1, 8, 23, 0.28);
+      backdrop-filter: blur(24px);
+    }
+    .soft-ring {
+      position: relative;
+      overflow: hidden;
+    }
+    .soft-ring::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.14), transparent 24%), radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.12), transparent 24%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .soft-ring > * { position: relative; z-index: 1; }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      background: rgba(16, 185, 129, 0.12);
+      color: #bbf7d0;
+      padding: 0.55rem 1rem;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .hero-phone {
+      width: min(100%, 440px);
+      aspect-ratio: 10 / 18;
+      border-radius: 48px;
+      box-shadow: 0 55px 125px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.82));
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-phone::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 18%, rgba(16, 185, 129, 0.14), transparent 18%), radial-gradient(circle at 80% 78%, rgba(56, 189, 248, 0.10), transparent 18%);
+      pointer-events: none;
+    }
+    .hero-phone-screen {
+      position: relative;
+      margin: 18px 18px 16px;
+      padding: 1.1rem;
+      border-radius: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, rgba(10, 15, 28, 0.96), rgba(10, 15, 28, 0.90));
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .hero-phone-header {
+      padding: 1rem 1rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+    .hero-phone-body { padding: 0 1rem 1rem; }
+    .hero-phone-card {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: 30px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .hero-phone-status { font-size: 0.78rem; color: #94a3b8; letter-spacing: 0.04em; text-transform: uppercase; }
+    .hero-phone-list { display: grid; gap: 0.85rem; margin-top: 1.15rem; }
+    .hero-phone-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.95rem;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 22px;
+      padding: 1rem 0.95rem;
+    }
+    .hero-phone-item span {
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(16, 185, 129, 0.18);
+      color: #a7f3d0;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .hero-phone-item strong { color: #f8fafc; font-size: 0.98rem; display: block; }
+    .hero-phone-item small { color: #94a3b8; display: block; margin-top: 0.2rem; font-size: 0.82rem; }
+    .btn-luxe { box-shadow: 0 24px 55px rgba(16, 185, 129, 0.22); }
+    .section-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .section-header h2 { margin: 0; }
+    .product-meta { margin-top: 0.75rem; color: #94a3b8; font-size: 0.96rem; line-height: 1.6; }
+    .product-img { width: 100%; height: 13rem; object-fit: cover; border-radius: 1.25rem; transition: opacity .45s ease, transform .35s ease; display: block; background-color: #0f172a; opacity: 0; transform: translateY(6px); }
+    .product-img.img-loaded { opacity: 1; transform: none; }
+    .product-img svg { width: 100%; height: 100%; display: block; border-radius: inherit; }
+    .order-btn { transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+    .order-btn:hover { box-shadow: 0 20px 45px rgba(16, 185, 129, 0.2); }
+    .testimonial-avatar { width: 3rem; height: 3rem; border-radius: 1rem; display: grid; place-items: center; font-size: 0.95rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.08); }
+    .card-hover { transition: transform .28s ease, box-shadow .28s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 55px rgba(2, 6, 23, 0.15); }
+    .card-hover:hover .product-img { transform: scale(1.03); }
+    .product-price { font-size: 1rem; }
+    .floating-wa { transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+    .floating-wa:hover { transform: translateY(-2px); box-shadow: 0 24px 42px rgba(16, 185, 129, 0.25); }
+    .floating-wa::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35);
+      animation: pulse 2.8s infinite ease-out;
+      opacity: 0.4;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35); }
+      50% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    @media (max-width: 1023px) {
+      .hero-phone { margin: 0 auto; }
+      .section-header { flex-direction: column; align-items: flex-start; }
+      #mobile-menu { right: 0.75rem; top: 5.25rem; }
+    }
+    @media (min-width: 1024px) {
+      .nav-toggle { display: none !important; }
+    }
+    @media (max-width: 639px) {
+      .product-img { height: 11rem; }
+      .hero-phone { width: min(100%, 100%); }
+      .hero-phone-screen { margin: 14px 14px 14px; }
+    }
+  </style>
+</head>
+<body class="text-slate-100 antialiased">
+  <header class="site-header">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="logo.svg" alt="WhatsOrderNG logo" class="h-11 w-11 rounded-2xl border border-white/10 bg-slate-950 shadow-lg shadow-emerald-500/15" />
+        <div>
+          <p class="text-base font-semibold text-emerald-300 tracking-wide">WhatsOrderNG</p>
+          <p class="text-xs text-slate-500">Premium WhatsApp commerce</p>
+        </div>
+      </div>
+      <nav class="hidden lg:flex items-center gap-8 text-sm">
+        <a href="#products" class="nav-link">Products</a>
+        <a href="#how" class="nav-link">How it works</a>
+        <a href="#contact" class="nav-link">Get Yours</a>
+      </nav>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="#contact" class="text-slate-300 hover:text-white transition">Book demo</a>
+        <a href="#primary-whatsapp" class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-xl shadow-emerald-500/25 hover:-translate-y-0.5 transition">Order now</a>
+      </div>
+      <button id="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle menu" class="nav-toggle" style="display:grid;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </div>
+    <nav id="mobile-menu" class="lg:hidden hidden">
+      <a href="#products" class="nav-link">Products</a>
+      <a href="#how" class="nav-link">How it works</a>
+      <a href="#contact" class="nav-link">Get Yours</a>
+      <a id="mobile-whatsapp" href="#" class="mt-3 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 px-4 py-3 text-sm font-semibold text-slate-950 shadow-xl shadow-emerald-500/25 hover:-translate-y-0.5 transition">Order now</a>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-10 lg:py-14">
+    <section class="grid gap-10 lg:grid-cols-[1.1fr_0.95fr] items-center">
+      <div class="space-y-8">
+        <div class="badge-pill">⚡ High-demand WhatsApp storefront • Naira-ready • Built for fast orders</div>
+        <div class="space-y-5">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-white">Turn WhatsApp Into Your Best Sales Channel</h1>
+          <p class="max-w-2xl text-lg leading-8 text-slate-300">Launch a premium storefront that helps customers browse products and order instantly through WhatsApp.</p>
+        </div>
+
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-start">
+          <a id="primary-whatsapp" href="#" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 px-6 py-3 text-base font-semibold text-slate-950 shadow-xl shadow-emerald-500/20 hover:-translate-y-0.5 transition btn-luxe">Launch your WhatsApp store</a>
+          <a href="#products" class="inline-flex items-center justify-center rounded-full border border-emerald-500/30 bg-white/5 px-6 py-3 text-base font-semibold text-emerald-200 hover:bg-white/10 transition">See product flow</a>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="glass-card rounded-3xl p-6 soft-ring">
+            <p class="text-sm uppercase tracking-[0.22em] text-emerald-300">Conversion-led</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">Built to turn clicks into chats</h3>
+          </div>
+          <div class="glass-card rounded-3xl p-6 soft-ring">
+            <p class="text-sm uppercase tracking-[0.22em] text-sky-300">Trust first</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">Premium design for serious brands</h3>
+          </div>
+          <div class="glass-card rounded-3xl p-6 soft-ring">
+            <p class="text-sm uppercase tracking-[0.22em] text-amber-300">Fast launch</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">Get online in 48 hours</h3>
+          </div>
+        </div>
+
+        <div class="mt-2 grid gap-4 sm:grid-cols-2">
+          <div class="glass-card rounded-3xl p-5 soft-ring">
+            <p class="text-sm text-slate-400">WhatsApp commerce</p>
+            <p class="mt-2 text-xl font-semibold text-white">+234 704 015 5877</p>
+          </div>
+          <div class="glass-card rounded-3xl p-5 soft-ring">
+            <p class="text-sm text-slate-400">Quick setup</p>
+            <p class="mt-2 text-xl font-semibold text-white">Live preview in minutes</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative mx-auto max-w-[440px]">
+        <div class="hero-phone">
+          <div class="hero-phone-screen">
+            <div class="screen-content">
+              <div class="hero-phone-header">
+                <span class="hero-phone-status">WhatsOrderNG</span>
+                <span class="hero-phone-status">Live preview</span>
+              </div>
+              <div class="hero-phone-body">
+                <div class="hero-phone-card">
+                  <div class="flex items-center justify-between gap-3">
+                    <div>
+                      <p class="text-slate-300 text-sm" id="hero-order-label">New WhatsApp order</p>
+                      <p class="mt-1 font-semibold text-white" id="hero-order-title">Chicken Shawarma • ₦2,500</p>
+                    </div>
+                    <span id="hero-order-status" class="inline-flex items-center justify-center rounded-full bg-emerald-400/15 px-3 py-1 text-emerald-200 text-xs font-semibold">Received</span>
+                  </div>
+                </div>
+                <div class="hero-phone-card">
+                  <img id="hero-preview-image" loading="lazy" class="product-img img-loaded rounded-[2rem] h-44 w-full object-cover" src="./assets/images/chicken-shawarma.jpg" alt="Premium order item preview" />
+                </div>
+                <div class="hero-phone-list" id="hero-phone-list">
+                  <div class="hero-phone-item">
+                    <span>1</span>
+                    <div>
+                      <strong>Chicken Shawarma</strong>
+                      <small>Ready for pickup in 12 mins</small>
+                    </div>
+                  </div>
+                  <div class="hero-phone-item">
+                    <span>2</span>
+                    <div>
+                      <strong>Phone Case</strong>
+                      <small>Fast delivery with chat confirmation</small>
+                    </div>
+                  </div>
+                  <div class="hero-phone-item">
+                    <span>3</span>
+                    <div>
+                      <strong>Perfume</strong>
+                      <small>Sales flow that feels premium</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pointer-events-none absolute -right-10 top-12 h-28 w-28 rounded-full bg-emerald-400/10 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-8 left-6 h-24 w-24 rounded-full bg-sky-400/10 blur-3xl"></div>
+      </div>
+    </section>
+
+    <section class="mt-10 grid gap-4 sm:grid-cols-3">
+      <div class="glass-card rounded-3xl p-6 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Trusted by sellers</p>
+        <h3 class="mt-3 text-3xl font-semibold text-white">500+ orders processed</h3>
+      </div>
+      <div class="glass-card rounded-3xl p-6 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Ready fast</p>
+        <h3 class="mt-3 text-3xl font-semibold text-white">48-hour setup</h3>
+      </div>
+      <div class="glass-card rounded-3xl p-6 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Always available</p>
+        <h3 class="mt-3 text-3xl font-semibold text-white">24/7 WhatsApp ordering</h3>
+      </div>
+    </section>
+
+    <!-- Premium highlights -->
+    <section class="mt-12 grid gap-6 lg:grid-cols-3">
+      <article class="reveal glass-card rounded-[2rem] p-7 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-emerald-300">Premium storefront</p>
+        <h3 class="mt-3 text-2xl font-semibold text-white">A launch-ready WhatsApp ordering page</h3>
+        <p class="mt-3 text-slate-400">Designed to look modern, feel premium, and capture more conversations.</p>
+      </article>
+      <article class="reveal glass-card rounded-[2rem] p-7 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-sky-300">Conversion focus</p>
+        <h3 class="mt-3 text-2xl font-semibold text-white">Fast action CTAs</h3>
+        <p class="mt-3 text-slate-400">Every button and section is placed to drive clicks straight to WhatsApp.</p>
+      </article>
+      <article class="reveal glass-card rounded-[2rem] p-7 soft-ring">
+        <p class="text-sm uppercase tracking-[0.22em] text-amber-300">Local growth</p>
+        <h3 class="mt-3 text-2xl font-semibold text-white">Naira-ready experience</h3>
+        <p class="mt-3 text-slate-400">Built for Nigerian businesses that want a trusted, high-end online presence.</p>
+      </article>
+    </section>
+
+    <section class="mt-12">
+      <div class="glass-card rounded-[2rem] p-8 soft-ring">
+        <div class="section-header">
+          <div>
+            <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Stay in the loop</p>
+            <h2 class="mt-3 text-3xl font-semibold text-white">Get a demo link to see the full ordering flow.</h2>
+          </div>
+        </div>
+        <form id="email-capture-form" name="email-capture" method="POST" data-netlify="true" class="mt-8 grid gap-4 sm:grid-cols-[1fr_auto]">
+          <input type="hidden" name="form-name" value="email-capture" />
+          <input type="email" name="email" id="email-input" required placeholder="Enter your email to get a demo link" class="w-full rounded-3xl border border-white/10 bg-slate-950/80 px-5 py-4 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40" />
+          <button type="submit" class="rounded-3xl bg-gradient-to-r from-emerald-400 to-green-500 px-6 py-4 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5 transition">Send demo</button>
+        </form>
+        <p id="email-feedback" class="mt-3 text-sm text-emerald-200 hidden">Thanks! We'll send a demo link soon.</p>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="mt-14">
+      <div class="section-header mb-6">
+        <div>
+          <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Storefront preview</p>
+          <h2 class="mt-3 text-3xl font-semibold text-white">Beautiful product cards for quick ordering</h2>
+        </div>
+        <p class="max-w-xl text-slate-400">These mockup items show how easy it feels to browse and order from WhatsApp-first pages.</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <template id="product-template">
+          <article class="reveal glass-card rounded-[2rem] p-6 flex flex-col justify-between soft-ring card-hover">
+            <div>
+              <img loading="lazy" class="product-img img-loaded h-44 w-full rounded-[2rem] mb-5 object-cover" src="./assets/images/product-fallback.svg" alt="Product image" />
+              <h4 class="font-semibold text-white product-name"></h4>
+              <p class="mt-3 text-slate-400 product-meta">WhatsApp friendly product card with fast ordering.</p>
+              <p class="mt-4 text-emerald-300 font-bold product-price"></p>
+            </div>
+            <a class="order-btn mt-7 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-green-500 px-4 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5 transition" href="#">Order on WhatsApp</a>
+          </article>
+        </template>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="mt-14">
+      <div class="section-header mb-6">
+        <div>
+          <p class="text-sm uppercase tracking-[0.22em] text-slate-400">How it works</p>
+          <h2 class="mt-3 text-3xl font-semibold text-white">Simple steps from landing page to WhatsApp order</h2>
+        </div>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="reveal glass-card rounded-[2rem] p-6 soft-ring">
+          <div class="text-emerald-300 text-3xl">1</div>
+          <h3 class="mt-4 text-xl font-semibold text-white">Showcase products</h3>
+          <p class="mt-3 text-slate-400">Use attractive cards and clear pricing so customers know what to buy instantly.</p>
+        </article>
+        <article class="reveal glass-card rounded-[2rem] p-6 soft-ring">
+          <div class="text-emerald-300 text-3xl">2</div>
+          <h3 class="mt-4 text-xl font-semibold text-white">One-click WhatsApp order</h3>
+          <p class="mt-3 text-slate-400">Send a prefilled message directly to WhatsApp so the order flow feels effortless.</p>
+        </article>
+        <article class="reveal glass-card rounded-[2rem] p-6 soft-ring">
+          <div class="text-emerald-300 text-3xl">3</div>
+          <h3 class="mt-4 text-xl font-semibold text-white">Close faster</h3>
+          <p class="mt-3 text-slate-400">Customers get instant confirmation in chat, turning interest into purchase quickly.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="mt-14">
+      <div class="section-header mb-6">
+        <div>
+          <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Trusted reviews</p>
+          <h2 class="mt-3 text-3xl font-semibold text-white">Real brands that converted faster with WhatsOrderNG</h2>
+        </div>
+      </div>
+      <div class="grid gap-4 xl:grid-cols-3">
+        <article class="glass-card rounded-[2rem] p-6 soft-ring card-hover">
+          <div class="flex items-center gap-4">
+            <div class="testimonial-avatar bg-emerald-400/15 text-emerald-200">AR</div>
+            <div>
+              <p class="font-semibold text-white">Aisha R.</p>
+              <p class="text-sm text-slate-400">Lagos Street Eats</p>
+            </div>
+          </div>
+          <p class="mt-5 text-slate-300 leading-7">“The order page looks premium and our WhatsApp sales doubled in the first week. Customers love the smooth product cards.”</p>
+        </article>
+        <article class="glass-card rounded-[2rem] p-6 soft-ring card-hover">
+          <div class="flex items-center gap-4">
+            <div class="testimonial-avatar bg-sky-400/15 text-sky-200">MB</div>
+            <div>
+              <p class="font-semibold text-white">Mohammed B.</p>
+              <p class="text-sm text-slate-400">Naija Fashion Co.</p>
+            </div>
+          </div>
+          <p class="mt-5 text-slate-300 leading-7">“The page feels like a startup product, not a quick WhatsApp link. It made us look more trustworthy to customers.”</p>
+        </article>
+        <article class="glass-card rounded-[2rem] p-6 soft-ring card-hover">
+          <div class="flex items-center gap-4">
+            <div class="testimonial-avatar bg-amber-400/15 text-amber-200">SR</div>
+            <div>
+              <p class="font-semibold text-white">Sade R.</p>
+              <p class="text-sm text-slate-400">Premium Gifts NG</p>
+            </div>
+          </div>
+          <p class="mt-5 text-slate-300 leading-7">“The WhatsApp CTA is clear, the product flow feels premium, and customers actually complete the order without leaving chat.”</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="contact" class="mt-14 glass-card rounded-[2.5rem] p-10 text-center soft-ring">
+      <p class="text-sm uppercase tracking-[0.22em] text-slate-400">Ready to upgrade your order flow?</p>
+      <h3 class="mt-4 text-4xl font-semibold text-white">Get a premium WhatsApp ordering landing page today.</h3>
+      <p class="mt-4 max-w-2xl mx-auto text-slate-400">We build your page, connect it to WhatsApp, and make sure it looks like a modern startup product.</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-center">
+        <a id="final-cta" href="#" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-green-500 px-8 py-4 text-base font-semibold text-slate-950 shadow-2xl shadow-emerald-500/25 hover:-translate-y-0.5 transition">Launch my page</a>
+        <a href="#email-capture-form" class="inline-flex items-center justify-center rounded-full border border-slate-600/50 bg-white/5 px-8 py-4 text-base font-semibold text-slate-200 hover:bg-white/10 transition">Request a demo</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating WA -->
+  <a id="floating-wa" title="Chat on WhatsApp" aria-label="Chat on WhatsApp" class="fixed right-4 bottom-4 bg-gradient-to-r from-emerald-400 to-green-500 hover:scale-105 text-slate-950 p-3 rounded-full shadow-lg shadow-emerald-500/20 z-50" href="#">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20.5 3.5L3 21l3-1 1.3-.4A8.5 8.5 0 1 0 20.5 3.5z" fill="currentColor"/></svg>
+  </a>
+
+  <footer class="mt-8 py-6 text-center text-sm text-slate-400">© <span id="year"></span> WhatsOrderNG</footer>
+
+  <script>
+    // Demo phone number (international, no plus)
+    const PHONE_NUMBER = '2347040155877';
+
+    function makeWaLink(number, text) {
+      return 'https://wa.me/' + number + '?text=' + encodeURIComponent(text);
+    }
+
+    // wire up header/cta links
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('primary-whatsapp').href = makeWaLink(PHONE_NUMBER, 'Hi, I want to order. Please help me.');
+    document.getElementById('final-cta').href = makeWaLink(PHONE_NUMBER, 'Hello, I want a website like the demo.');
+    document.getElementById('floating-wa').href = makeWaLink(PHONE_NUMBER, 'Hello, I want to order / enquire about a website.');
+    const mobileWhatsApp = document.getElementById('mobile-whatsapp');
+    if (mobileWhatsApp) {
+      mobileWhatsApp.href = makeWaLink(PHONE_NUMBER, 'Hi, I want to order. Please help me.');
+    }
+
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    navToggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      mobileMenu.classList.toggle('hidden', !open);
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Inline SVG assets (embedded to avoid external/network fetches)
+    const INLINE_SVGS = {
+      productFallback: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0ea5a9"/><stop offset="1" stop-color="#03695b"/></linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#0f172a" />
+  <rect x="20" y="20" width="760" height="560" rx="22" fill="url(#g)" opacity="0.18" />
+  <g fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="36" text-anchor="middle">
+    <text x="400" y="320">Image unavailable</text>
+  </g>
+</svg>`,
+      chickenShawarma: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="a" x1="0" x2="1"><stop offset="0" stop-color="#f97316"/><stop offset="1" stop-color="#f43f5e"/></linearGradient></defs>
+  <rect width="100%" height="100%" fill="#07121e" />
+  <rect x="40" y="40" width="720" height="520" rx="28" fill="url(#a)" opacity="0.12" />
+  <text x="400" y="320" fill="#fff" font-size="36" font-family="Arial" text-anchor="middle">Chicken Shawarma</text>
+</svg>`,
+      sneakers: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#08101f" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Sneakers</text>
+</svg>`,
+      hoodie: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Hoodie</text>
+</svg>`,
+      wristwatch: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Wristwatch</text>
+</svg>`,
+      phoneCase: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Phone Case</text>
+</svg>`,
+      bag: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Bag</text>
+</svg>`,
+      perfume: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Perfume</text>
+</svg>`,
+      cap: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="100%" height="100%" fill="#07121e" />
+  <text x="400" y="320" fill="#94a3b8" font-size="36" font-family="Arial" text-anchor="middle">Cap</text>
+</svg>`
+    };
+    // product data and render (local JPGs)
+    const products = [
+      { name: 'Chicken Shawarma', price: '₦2,500', image: './assets/images/chicken-shawarma.jpg', fallback: './assets/images/chicken-shawarma.svg' },
+      { name: 'Sneakers', price: '₦18,000', image: './assets/images/sneakers.jpg', fallback: './assets/images/sneakers.svg' },
+      { name: 'Hoodie', price: '₦15,000', image: './assets/images/hoodie.jpg', fallback: './assets/images/hoodie.svg' },
+      { name: 'Wristwatch', price: '₦7,500', image: './assets/images/wristwatch.jpg', fallback: './assets/images/wristwatch.svg' },
+      { name: 'Phone Case', price: '₦3,000', image: './assets/images/phone-case.jpg', fallback: './assets/images/phone-case.svg' },
+      { name: 'Bag', price: '₦12,000', image: './assets/images/bag.jpg', fallback: './assets/images/bag.svg' },
+      { name: 'Perfume', price: '₦10,000', image: './assets/images/perfume.jpg', fallback: './assets/images/perfume.svg' },
+      { name: 'Cap', price: '₦5,000', image: './assets/images/cap.jpg', fallback: './assets/images/cap.svg' }
+    ];
+
+    const grid = document.querySelector('#products .grid') || document.querySelector('#products > div');
+    const tpl = document.getElementById('product-template');
+
+    // Helper: set image with fallback and fade-in on load
+    function setImageWithFallback(img, src, fallback) {
+      img.alt = img.alt || '';
+      img.classList.remove('img-loaded');
+      img.style.backgroundColor = '#0f172a';
+
+        function showSrc(url) {
+        img.src = url;
+        img.classList.add('img-loaded');
+      }
+
+      const loader = new Image();
+      loader.crossOrigin = 'anonymous';
+      loader.onload = () => showSrc(src);
+      loader.onerror = () => {
+        if (img.src !== fallback) {
+          showSrc(fallback);
+        } else {
+          img.classList.add('img-loaded');
+        }
+      };
+      loader.src = src;
+
+      // in case browser already cached current image
+      if (img.complete && img.naturalWidth !== 0) img.classList.add('img-loaded');
+    }
+
+    products.forEach(p => {
+      const node = tpl.content.cloneNode(true);
+      node.querySelector('.product-name').textContent = p.name;
+      node.querySelector('.product-price').textContent = p.price;
+      const img = node.querySelector('img.product-img');
+      img.alt = p.name;
+      img.loading = 'lazy';
+      img.style.backgroundColor = '#0b1220';
+      // preload and swap to local JPG, fall back to SVG placeholder
+      setImageWithFallback(img, p.image, p.fallback || './assets/images/product-fallback.svg');
+      const btn = node.querySelector('.order-btn');
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const text = `I want to order ${p.name} (${p.price})`;
+        window.open(makeWaLink(PHONE_NUMBER, text), '_blank');
+      });
+      grid.appendChild(node);
+    });
+
+    const heroPreviewItems = [
+      {
+        label: 'New WhatsApp order',
+        title: 'Chicken Shawarma • ₦2,500',
+        status: 'Received',
+        image: './assets/images/chicken-shawarma.jpg',
+        fallback: './assets/images/chicken-shawarma.svg',
+        list: [
+          { title: 'Chicken Shawarma', subtitle: 'Ready for pickup in 12 mins' },
+          { title: 'Phone Case', subtitle: 'Fast delivery with chat confirmation' },
+          { title: 'Perfume', subtitle: 'Sales flow that feels premium' }
+        ]
+      },
+      {
+        label: 'New WhatsApp order',
+        title: 'Luxury Sneakers • ₦18,000',
+        status: 'Confirmed',
+        image: './assets/images/sneakers.jpg',
+        fallback: './assets/images/sneakers.svg',
+        list: [
+          { title: 'Sneakers', subtitle: 'Same-day delivery available' },
+          { title: 'Capsule Review', subtitle: 'Fast chat checkout' },
+          { title: 'Gift wrap', subtitle: 'Elegant packaging option' }
+        ]
+      },
+      {
+        label: 'New WhatsApp order',
+        title: 'Perfume Set • ₦10,000',
+        status: 'Preparing',
+        image: './assets/images/perfume.jpg',
+        fallback: './assets/images/perfume.svg',
+        list: [
+          { title: 'Perfume', subtitle: 'Ready in 2 minutes' },
+          { title: 'Gift note', subtitle: 'Personalized message available' },
+          { title: 'Fast dispatch', subtitle: 'Priority delivery' }
+        ]
+      }
+    ];
+
+    const heroOrderLabel = document.getElementById('hero-order-label');
+    const heroOrderTitle = document.getElementById('hero-order-title');
+    const heroOrderStatus = document.getElementById('hero-order-status');
+    const heroPreviewImage = document.getElementById('hero-preview-image');
+    const heroPhoneItems = document.querySelectorAll('#hero-phone-list .hero-phone-item');
+
+    // heroPreviewImage is an inline SVG container now; no native lazy loading
+
+    let heroPreviewIndex = 0;
+    function updateHeroPreview(index) {
+      const item = heroPreviewItems[index];
+      if (!item) return;
+      heroOrderLabel.textContent = item.label;
+      heroOrderTitle.textContent = item.title;
+      heroOrderStatus.textContent = item.status;
+      // set hero image using loader (preload local JPG, fallback to SVG)
+      if (heroPreviewImage.tagName === 'IMG') {
+        setImageWithFallback(heroPreviewImage, item.image, item.fallback || './assets/images/product-fallback.svg');
+        heroPreviewImage.alt = item.title + ' preview';
+      } else {
+        // fallback: inject image element
+        heroPreviewImage.innerHTML = '<img src="' + (item.image || item.fallback || './assets/images/product-fallback.svg') + '" alt="' + (item.title + ' preview') + '" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"/>';
+        heroPreviewImage.classList.add('img-loaded');
+      }
+      heroPhoneItems.forEach((node, idx) => {
+        const [titleEl, subtitleEl] = node.querySelectorAll('strong, small');
+        if (item.list[idx]) {
+          titleEl.textContent = item.list[idx].title;
+          subtitleEl.textContent = item.list[idx].subtitle;
+        }
+      });
+    }
+
+    updateHeroPreview(heroPreviewIndex);
+    setInterval(() => {
+      heroPreviewIndex = (heroPreviewIndex + 1) % heroPreviewItems.length;
+      updateHeroPreview(heroPreviewIndex);
+    }, 4000);
+
+    // simple reveal animations
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Email capture handling (localStore + Netlify Forms)
+    const emailForm = document.getElementById('email-capture-form');
+    const emailInput = document.getElementById('email-input');
+    const emailFeedback = document.getElementById('email-feedback');
+
+    emailForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      // show feedback temporarily
+      emailFeedback.classList.remove('hidden');
+      setTimeout(() => emailFeedback.classList.add('hidden'), 3000);
+
+      // clear input
+      emailInput.value = '';
+
+      // TODO: Implement actual form handling here
+    });
+  </script>
+</body>
+</html>
