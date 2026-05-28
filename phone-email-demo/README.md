@@ -7,13 +7,9 @@ This project is a simple web application that captures user email addresses and 
 ```
 phone-email-demo
 ├── src
-│   ├── index.html          # Main HTML file
+│   ├── index.html          # Main HTML file with polished production landing page
 │   ├── components
 │   │   └── email-form.html # Email capture form component
-│   ├── css
-│   │   └── styles.css      # Styles for the application
-│   ├── js
-│   │   └── main.js         # JavaScript functionality
 │   └── data
 │       └── contact.json    # Sample contact data
 ├── package.json            # npm configuration file
