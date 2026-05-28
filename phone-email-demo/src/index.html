@@ -571,10 +571,15 @@
       heroOrderLabel.textContent = item.label;
       heroOrderTitle.textContent = item.title;
       heroOrderStatus.textContent = item.status;
-      // inject inline SVG for hero preview (no external fetches)
-      heroPreviewImage.innerHTML = item.image || item.fallback || INLINE_SVGS.productFallback;
-      heroPreviewImage.classList.add('img-loaded');
-      heroPreviewImage.setAttribute('aria-label', item.title + ' preview');
+      // set hero image using loader (preload local JPG, fallback to SVG)
+      if (heroPreviewImage.tagName === 'IMG') {
+        setImageWithFallback(heroPreviewImage, item.image, item.fallback || './assets/images/product-fallback.svg');
+        heroPreviewImage.alt = item.title + ' preview';
+      } else {
+        // fallback: inject image element
+        heroPreviewImage.innerHTML = '<img src="' + (item.image || item.fallback || './assets/images/product-fallback.svg') + '" alt="' + (item.title + ' preview') + '" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"/>';
+        heroPreviewImage.classList.add('img-loaded');
+      }
       heroPhoneItems.forEach((node, idx) => {
         const [titleEl, subtitleEl] = node.querySelectorAll('strong, small');
         if (item.list[idx]) {
