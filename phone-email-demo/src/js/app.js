@@ -14,15 +14,17 @@
     el.rel = 'noopener noreferrer';
   }
 
+  const IMG = 'assets/images/';
+
   const products = [
-    { name: 'Chicken Shawarma', price: '₦2,500', image: './assets/images/chicken-shawarma.svg' },
-    { name: 'Sneakers', price: '₦18,000', image: './assets/images/sneakers.svg' },
-    { name: 'Hoodie', price: '₦15,000', image: './assets/images/hoodie.svg' },
-    { name: 'Wristwatch', price: '₦7,500', image: './assets/images/wristwatch.svg' },
-    { name: 'Phone Case', price: '₦3,000', image: './assets/images/phone-case.svg' },
-    { name: 'Bag', price: '₦12,000', image: './assets/images/bag.svg' },
-    { name: 'Perfume', price: '₦10,000', image: './assets/images/perfume.svg' },
-    { name: 'Cap', price: '₦5,000', image: './assets/images/cap.svg' }
+    { name: 'Chicken Shawarma', price: '₦2,500', image: IMG + 'chicken-shawarma.jpg', fallback: IMG + 'chicken-shawarma.svg' },
+    { name: 'Sneakers', price: '₦18,000', image: IMG + 'sneakers.jpg', fallback: IMG + 'sneakers.svg' },
+    { name: 'Hoodie', price: '₦15,000', image: IMG + 'hoodie.jpg', fallback: IMG + 'hoodie.svg' },
+    { name: 'Wristwatch', price: '₦7,500', image: IMG + 'wristwatch.jpg', fallback: IMG + 'wristwatch.svg' },
+    { name: 'Phone Case', price: '₦3,000', image: IMG + 'phone-case.jpg', fallback: IMG + 'phone-case.svg' },
+    { name: 'Bag', price: '₦12,000', image: IMG + 'bag.jpg', fallback: IMG + 'bag.svg' },
+    { name: 'Perfume', price: '₦10,000', image: IMG + 'perfume.jpg', fallback: IMG + 'perfume.svg' },
+    { name: 'Cap', price: '₦5,000', image: IMG + 'cap.jpg', fallback: IMG + 'cap.svg' }
   ];
 
   const heroPreviewItems = [
@@ -30,21 +32,52 @@
       label: 'New WhatsApp order',
       title: 'Chicken Shawarma · ₦2,500',
       status: 'Received',
-      image: './assets/images/chicken-shawarma.svg'
+      image: IMG + 'hero-1.jpg',
+      fallback: IMG + 'chicken-shawarma.svg'
     },
     {
       label: 'New WhatsApp order',
       title: 'Sneakers · ₦18,000',
       status: 'Confirmed',
-      image: './assets/images/sneakers.svg'
+      image: IMG + 'hero-2.jpg',
+      fallback: IMG + 'sneakers.svg'
     },
     {
       label: 'New WhatsApp order',
       title: 'Perfume · ₦10,000',
       status: 'Preparing',
-      image: './assets/images/perfume.svg'
+      image: IMG + 'hero-3.jpg',
+      fallback: IMG + 'perfume.svg'
     }
   ];
+
+  function setImageWithFallback(img, src, fallback) {
+    if (!img) return;
+    img.classList.remove('img-loaded');
+    img.style.backgroundColor = '#0f172a';
+
+    function showSrc(url) {
+      img.src = url;
+      img.classList.add('img-loaded');
+    }
+
+    const loader = new Image();
+    loader.onload = function () {
+      showSrc(src);
+    };
+    loader.onerror = function () {
+      if (fallback && fallback !== src) {
+        showSrc(fallback);
+      } else {
+        img.classList.add('img-loaded');
+      }
+    };
+    loader.src = src;
+
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add('img-loaded');
+    }
+  }
 
   document.getElementById('year').textContent = String(new Date().getFullYear());
 
@@ -64,8 +97,8 @@
       node.querySelector('.product-name').textContent = p.name;
       node.querySelector('.product-price').textContent = p.price;
       const img = node.querySelector('.product-img');
-      img.src = p.image;
       img.alt = p.name;
+      setImageWithFallback(img, p.image, p.fallback || IMG + 'product-fallback.svg');
       const btn = node.querySelector('.order-btn');
       btn.href = makeWaLink('I want to order ' + p.name + ' (' + p.price + ')');
       btn.setAttribute('target', '_blank');
@@ -87,7 +120,7 @@
     if (heroOrderTitle) heroOrderTitle.textContent = item.title;
     if (heroOrderStatus) heroOrderStatus.textContent = item.status;
     if (heroPreviewImage) {
-      heroPreviewImage.src = item.image;
+      setImageWithFallback(heroPreviewImage, item.image, item.fallback || IMG + 'product-fallback.svg');
       heroPreviewImage.alt = item.title;
     }
   }
