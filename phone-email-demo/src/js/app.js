@@ -32,21 +32,21 @@
       label: 'New WhatsApp order',
       title: 'Chicken Shawarma · ₦2,500',
       status: 'Received',
-      image: IMG + 'hero-1.jpg',
+      image: IMG + 'chicken-shawarma.jpg',
       fallback: IMG + 'chicken-shawarma.svg'
     },
     {
       label: 'New WhatsApp order',
       title: 'Sneakers · ₦18,000',
       status: 'Confirmed',
-      image: IMG + 'hero-2.jpg',
+      image: IMG + 'sneakers.jpg',
       fallback: IMG + 'sneakers.svg'
     },
     {
       label: 'New WhatsApp order',
       title: 'Perfume · ₦10,000',
       status: 'Preparing',
-      image: IMG + 'hero-3.jpg',
+      image: IMG + 'perfume.jpg',
       fallback: IMG + 'perfume.svg'
     }
   ];
