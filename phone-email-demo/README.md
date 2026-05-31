@@ -25,11 +25,16 @@ npx live-server src
 
 ## Customize WhatsApp number
 
-Edit `PHONE_NUMBER` in `src/js/app.js` (international format, no `+`):
+Edit **`src/js/config.js`** (one place updates every button and link):
 
 ```js
-const PHONE_NUMBER = '2347040155877';
+window.WHATSAPP_CONFIG = {
+  phone: '2348012345678',      // no + or spaces
+  display: '+234 801 234 5678'  // shown on the page
+};
 ```
+
+Then redeploy to Vercel (`npx vercel deploy --prod` from `phone-email-demo`).
 
 ## Deploy on Netlify
 
@@ -39,6 +44,16 @@ const PHONE_NUMBER = '2347040155877';
 3. Copy your live URL (e.g. `https://your-site-name.netlify.app`).
 
 **Tip:** Set the publish directory to `src` if you connect a Git repository instead of drag-and-drop.
+
+## Deploy on Vercel (recommended)
+
+From the `phone-email-demo` folder (linked to project **whats-order-ng**):
+
+```bash
+npx vercel deploy --prod
+```
+
+Production URL: **https://whats-order-ng.vercel.app**
 
 ## Project structure
 

@@ -1,10 +1,22 @@
 (function () {
   'use strict';
 
-  const PHONE_NUMBER = '2347040155877';
+  const cfg = window.WHATSAPP_CONFIG || { phone: '2347040155877', display: '+234 704 015 5877' };
+  const PHONE_NUMBER = String(cfg.phone).replace(/\D/g, '');
 
   function makeWaLink(text) {
     return 'https://wa.me/' + PHONE_NUMBER + '?text=' + encodeURIComponent(text);
+  }
+
+  function applyPhoneToPage() {
+    const display = cfg.display || ('+' + PHONE_NUMBER);
+    const tel = 'tel:+' + PHONE_NUMBER;
+    document.querySelectorAll('[data-phone-display]').forEach(function (el) {
+      el.textContent = display;
+    });
+    document.querySelectorAll('[data-phone-tel]').forEach(function (el) {
+      el.href = tel;
+    });
   }
 
   function wireWhatsApp(el, message) {
@@ -80,6 +92,7 @@
   }
 
   document.getElementById('year').textContent = String(new Date().getFullYear());
+  applyPhoneToPage();
 
   wireWhatsApp(document.getElementById('primary-whatsapp'), 'Hi, I want to start selling with a WhatsApp storefront like this demo.');
   wireWhatsApp(document.getElementById('header-whatsapp'), 'Hi, I want to start selling with a WhatsApp storefront.');
