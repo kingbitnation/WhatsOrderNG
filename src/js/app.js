@@ -29,14 +29,14 @@
   const IMG = 'assets/images/';
 
   const products = [
-    { name: 'Chicken Shawarma', price: '₦2,500', image: IMG + 'chicken-shawarma.jpg', fallback: IMG + 'chicken-shawarma.svg' },
-    { name: 'Sneakers', price: '₦18,000', image: IMG + 'sneakers.jpg', fallback: IMG + 'sneakers.svg' },
-    { name: 'Hoodie', price: '₦15,000', image: IMG + 'hoodie.jpg', fallback: IMG + 'hoodie.svg' },
-    { name: 'Wristwatch', price: '₦7,500', image: IMG + 'wristwatch.jpg', fallback: IMG + 'wristwatch.svg' },
-    { name: 'Phone Case', price: '₦3,000', image: IMG + 'phone-case.jpg', fallback: IMG + 'phone-case.svg' },
-    { name: 'Bag', price: '₦12,000', image: IMG + 'bag.jpg', fallback: IMG + 'bag.svg' },
-    { name: 'Perfume', price: '₦10,000', image: IMG + 'perfume.jpg', fallback: IMG + 'perfume.svg' },
-    { name: 'Cap', price: '₦5,000', image: IMG + 'cap.jpg', fallback: IMG + 'cap.svg' }
+    { name: 'Chicken Shawarma', price: '₦2,500', image: IMG + 'chicken-shawarma.jpg', fallback: IMG + 'chicken-shawarma.svg', avatar: IMG + 'avatars/person1.jpg' },
+    { name: 'Sneakers', price: '₦18,000', image: IMG + 'sneakers.jpg', fallback: IMG + 'sneakers.svg', avatar: IMG + 'avatars/person2.jpg' },
+    { name: 'Hoodie', price: '₦15,000', image: IMG + 'hoodie.jpg', fallback: IMG + 'hoodie.svg', avatar: IMG + 'avatars/person3.jpg' },
+    { name: 'Wristwatch', price: '₦7,500', image: IMG + 'wristwatch.jpg', fallback: IMG + 'wristwatch.svg', avatar: IMG + 'avatars/person4.jpg' },
+    { name: 'Phone Case', price: '₦3,000', image: IMG + 'phone-case.jpg', fallback: IMG + 'phone-case.svg', avatar: IMG + 'avatars/person5.jpg' },
+    { name: 'Bag', price: '₦12,000', image: IMG + 'bag.jpg', fallback: IMG + 'bag.svg', avatar: IMG + 'avatars/person6.jpg' },
+    { name: 'Perfume', price: '₦10,000', image: IMG + 'perfume.jpg', fallback: IMG + 'perfume.svg', avatar: IMG + 'avatars/person7.jpg' },
+    { name: 'Cap', price: '₦5,000', image: IMG + 'cap.jpg', fallback: IMG + 'cap.svg', avatar: IMG + 'avatars/person8.jpg' }
   ];
 
   const heroPreviewItems = [
@@ -121,7 +121,7 @@
 
         // incoming (customer)
         var rowIn = document.createElement('div');
-        rowIn.className = 'msg-row incoming';
+        rowIn.className = 'msg-row incoming floating-message';
 
         var avatar = document.createElement('div');
         avatar.className = 'msg-avatar';
@@ -161,7 +161,7 @@
         (function (delay, replyText, idx) {
           setTimeout(function () {
             var rowOut = document.createElement('div');
-            rowOut.className = 'msg-row outgoing';
+            rowOut.className = 'msg-row outgoing floating-message';
 
             var bubbleOut = document.createElement('div');
             bubbleOut.className = 'msg-bubble outgoing';
@@ -230,8 +230,8 @@
       btn.addEventListener('click', function () {
         try {
           spawnFloatingMessages([
-            { text: 'Interested — ' + p.name, avatar: p.image, reply: 'I\u2019ll confirm your order shortly.' }
-          ], { force: true });
+            { text: 'Interested — ' + p.name, avatar: p.avatar || p.image, reply: 'I\u2019ll confirm your order shortly.' }
+          ], { force: true, reply: 'I\u2019ll confirm your order shortly.' });
         } catch (e) {}
       });
       grid.appendChild(node);
@@ -257,8 +257,8 @@
     // show a few floating demand messages related to the current preview
     var baseName = (item.title || '').split('·')[0].trim();
     var msgs = [
-      { text: 'Is ' + baseName + ' in stock?', avatar: item.image },
-      { text: 'Price for ' + baseName + '?', avatar: item.image }
+      { text: 'Is ' + baseName + ' in stock?', avatar: item.avatar || item.image },
+      { text: 'Price for ' + baseName + '?', avatar: item.avatar || item.image }
     ];
     spawnFloatingMessages(msgs, { force: true, reply: 'Thanks — we got your order request.' });
   }
