@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WhatsOrderNG — WhatsApp Storefront for Nigerian Businesses</title>
   <meta name="description" content="Launch a premium WhatsApp storefront so customers browse products and order instantly. Live in 48 hours." />
+  <link rel="canonical" href="https://yourdomain.example/" />
+  <meta property="og:title" content="WhatsOrderNG — Turn WhatsApp Into Your Best Sales Channel" />
+  <meta property="og:description" content="Launch a premium storefront that helps customers browse products and order instantly through WhatsApp." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WhatsOrderNG — Turn WhatsApp Into Your Best Sales Channel" />
+  <meta name="twitter:description" content="Launch a premium storefront that helps customers browse products and order instantly through WhatsApp." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#020617" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,7 +26,7 @@
 
   <header class="site-header">
     <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
-      <a href="#" class="flex items-center gap-3 shrink-0" aria-label="WhatsOrderNG home">
+      <a href="#main-content" class="flex items-center gap-3 shrink-0" aria-label="WhatsOrderNG home">
         <img src="logo.svg" alt="" width="44" height="44" class="h-11 w-11 rounded-xl border border-white/10 bg-slate-950" />
         <div>
           <p class="text-sm font-bold text-white">WhatsOrderNG</p>
@@ -33,7 +41,7 @@
         <a href="#faq" class="nav-link">FAQ</a>
       </nav>
       <div class="hidden lg:flex items-center gap-3">
-        <a id="header-whatsapp" href="#" class="btn-primary px-5 py-2.5 text-sm">Start Selling</a>
+        <a id="header-whatsapp" href="#" class="btn-primary px-5 py-2.5 text-sm" aria-label="Start selling on WhatsApp">Start Selling</a>
       </div>
       <button id="nav-toggle" type="button" class="nav-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -46,7 +54,7 @@
     <a href="#trust" class="nav-link">Why us</a>
     <a href="#products" class="nav-link">Products</a>
     <a href="#pricing" class="nav-link">Pricing</a>
-    <a id="mobile-whatsapp" href="#" class="mt-3 btn-primary w-full py-3 text-sm">Start Selling</a>
+    <a id="mobile-whatsapp" href="#" class="mt-3 btn-primary w-full py-3 text-sm" aria-label="Start selling on WhatsApp">Start Selling</a>
   </nav>
 
   <main id="main-content" class="max-w-6xl mx-auto px-4 py-8 sm:py-12 lg:py-14">
@@ -364,7 +372,7 @@
             <li>• Mobile Optimized</li>
             <li>• WhatsApp Integration</li>
           </ul>
-          <a href="#" class="mt-8 inline-flex btn-secondary justify-center w-full py-3 text-sm font-semibold">Choose Starter</a>
+          <a id="choose-starter" href="#" class="mt-8 inline-flex btn-secondary justify-center w-full py-3 text-sm font-semibold" aria-label="Choose Starter plan">Choose Starter</a>
         </article>
         <article class="plan-card plan-highlight rounded-3xl p-6 border border-emerald-400/15 bg-slate-950/90 shadow-[0_28px_90px_rgba(16,185,129,0.12)]">
           <p class="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">Business</p>
@@ -376,7 +384,7 @@
             <li>• Premium Design</li>
             <li>• Faster Setup</li>
           </ul>
-          <a href="#" class="mt-8 inline-flex btn-primary justify-center w-full py-3 text-sm font-semibold">Select Business</a>
+          <a id="select-business" href="#" class="mt-8 inline-flex btn-primary justify-center w-full py-3 text-sm font-semibold" aria-label="Select Business plan">Select Business</a>
         </article>
         <article class="plan-card glass-card rounded-3xl p-6">
           <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Premium</p>
@@ -388,7 +396,7 @@
             <li>• Priority Support</li>
             <li>• Custom Requirements</li>
           </ul>
-          <a href="#" class="mt-8 inline-flex btn-secondary justify-center w-full py-3 text-sm font-semibold">Talk to sales</a>
+          <a id="talk-sales" href="#" class="mt-8 inline-flex btn-secondary justify-center w-full py-3 text-sm font-semibold" aria-label="Talk to sales">Talk to sales</a>
         </article>
       </div>
     </section>

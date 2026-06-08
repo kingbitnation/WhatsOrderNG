@@ -229,6 +229,10 @@
   wireWhatsApp(document.getElementById('final-cta'), 'Hello, I want a website like this demo for my business. Please share next steps.');
   wireWhatsApp(document.getElementById('footer-whatsapp'), 'Hello, I want a WhatsApp storefront for my business.');
   wireWhatsApp(document.getElementById('floating-wa'), 'Hello, I have a question about the WhatsApp storefront demo.');
+  // wire pricing CTAs
+  wireWhatsApp(document.getElementById('choose-starter'), 'I\'d like the Starter plan. Please share next steps.');
+  wireWhatsApp(document.getElementById('select-business'), 'I\'d like the Business plan. Please share next steps.');
+  wireWhatsApp(document.getElementById('talk-sales'), 'Hi — I want to talk to sales about a custom storefront.');
 
   const grid = document.getElementById('product-grid');
   const tpl = document.getElementById('product-template');
