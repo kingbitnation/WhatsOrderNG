@@ -29,14 +29,14 @@
   const IMG = 'assets/images/';
 
   const products = [
-    { name: 'Chicken Shawarma', price: '₦2,500', image: IMG + 'chicken-shawarma.jpg', fallback: IMG + 'chicken-shawarma.svg', avatar: IMG + 'avatars/person1.svg' },
-    { name: 'Sneakers', price: '₦18,000', image: IMG + 'sneakers.jpg', fallback: IMG + 'sneakers.svg', avatar: IMG + 'avatars/person2.svg' },
-    { name: 'Hoodie', price: '₦15,000', image: IMG + 'hoodie.jpg', fallback: IMG + 'hoodie.svg', avatar: IMG + 'avatars/person3.svg' },
-    { name: 'Wristwatch', price: '₦7,500', image: IMG + 'wristwatch.jpg', fallback: IMG + 'wristwatch.svg', avatar: IMG + 'avatars/person4.svg' },
-    { name: 'Phone Case', price: '₦3,000', image: IMG + 'phone-case.jpg', fallback: IMG + 'phone-case.svg', avatar: IMG + 'avatars/person5.svg' },
-    { name: 'Bag', price: '₦12,000', image: IMG + 'bag.jpg', fallback: IMG + 'bag.svg', avatar: IMG + 'avatars/person6.svg' },
-    { name: 'Perfume', price: '₦10,000', image: IMG + 'perfume.jpg', fallback: IMG + 'perfume.svg', avatar: IMG + 'avatars/person7.svg' },
-    { name: 'Cap', price: '₦5,000', image: IMG + 'cap.jpg', fallback: IMG + 'cap.svg', avatar: IMG + 'avatars/person8.svg' }
+    { name: 'Chicken Shawarma', price: '₦2,500', image: IMG + 'chicken-shawarma.jpg', fallback: IMG + 'chicken-shawarma.svg', avatar: IMG + 'avatars/person1.jpg' },
+    { name: 'Sneakers', price: '₦18,000', image: IMG + 'sneakers.jpg', fallback: IMG + 'sneakers.svg', avatar: IMG + 'avatars/person2.jpg' },
+    { name: 'Hoodie', price: '₦15,000', image: IMG + 'hoodie.jpg', fallback: IMG + 'hoodie.svg', avatar: IMG + 'avatars/person3.jpg' },
+    { name: 'Wristwatch', price: '₦7,500', image: IMG + 'wristwatch.jpg', fallback: IMG + 'wristwatch.svg', avatar: IMG + 'avatars/person4.jpg' },
+    { name: 'Phone Case', price: '₦3,000', image: IMG + 'phone-case.jpg', fallback: IMG + 'phone-case.svg', avatar: IMG + 'avatars/person5.jpg' },
+    { name: 'Bag', price: '₦12,000', image: IMG + 'bag.jpg', fallback: IMG + 'bag.svg', avatar: IMG + 'avatars/person6.jpg' },
+    { name: 'Perfume', price: '₦10,000', image: IMG + 'perfume.jpg', fallback: IMG + 'perfume.svg', avatar: IMG + 'avatars/person7.jpg' },
+    { name: 'Cap', price: '₦5,000', image: IMG + 'cap.jpg', fallback: IMG + 'cap.svg', avatar: IMG + 'avatars/person8.jpg' }
   ];
 
   const heroPreviewItems = [
