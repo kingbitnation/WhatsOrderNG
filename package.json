@@ -1,0 +1,16 @@
+{
+  "name": "phone-email-demo",
+  "version": "1.0.0",
+  "description": "A demo project for capturing emails and displaying a sample phone number.",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build step can be added here.'"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
