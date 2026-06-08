@@ -105,39 +105,66 @@
 
       // limit to max 2 short bubbles for a tidy appearance
       texts.slice(0, 2).forEach(function (t, i) {
-        var msgWrap = document.createElement('div');
-        msgWrap.className = 'floating-message';
-
-        // avatar with initials
+        // incoming (customer)
+        var rowIn = document.createElement('div');
+        rowIn.className = 'msg-row incoming';
         var avatar = document.createElement('div');
         avatar.className = 'msg-avatar';
         var initials = (t.match(/\b(\w)/g) || []).slice(0,2).join('').toUpperCase();
-        avatar.textContent = initials || 'W';
+        avatar.textContent = initials || 'C';
 
-        // bubble with meta and text
-        var bubble = document.createElement('div');
-        bubble.className = 'msg-bubble';
-        var meta = document.createElement('div');
-        meta.className = 'msg-meta';
+        var bubbleIn = document.createElement('div');
+        bubbleIn.className = 'msg-bubble incoming';
+        var metaIn = document.createElement('div');
+        metaIn.className = 'msg-meta';
         var now = new Date();
-        meta.textContent = 'Customer · ' + now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
-        var textNode = document.createElement('div');
-        textNode.className = 'msg-text';
-        textNode.textContent = t;
-        bubble.appendChild(meta);
-        bubble.appendChild(textNode);
+        metaIn.textContent = 'Customer · ' + now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+        var textIn = document.createElement('div');
+        textIn.className = 'msg-text';
+        textIn.textContent = t;
+        bubbleIn.appendChild(metaIn);
+        bubbleIn.appendChild(textIn);
 
-        // append in WhatsApp-like order: avatar then bubble
-        msgWrap.appendChild(avatar);
-        msgWrap.appendChild(bubble);
+        rowIn.appendChild(avatar);
+        rowIn.appendChild(bubbleIn);
+        rowIn.style.animationDelay = (i * 220) + 'ms';
+        container.appendChild(rowIn);
 
-        // small stagger for nicer rhythm
-        msgWrap.style.animationDelay = (i * 220) + 'ms';
-        container.appendChild(msgWrap);
+        // outgoing (seller) short confirm message after a short delay
+        setTimeout(function () {
+          var rowOut = document.createElement('div');
+          rowOut.className = 'msg-row outgoing';
 
-        // remove after animation completes
-        msgWrap.addEventListener('animationend', function () {
-          if (msgWrap && msgWrap.parentNode) msgWrap.parentNode.removeChild(msgWrap);
+          var bubbleOut = document.createElement('div');
+          bubbleOut.className = 'msg-bubble outgoing';
+          var metaOut = document.createElement('div');
+          metaOut.className = 'msg-meta outgoing';
+          var now2 = new Date();
+          metaOut.textContent = 'You · ' + now2.getHours() + ':' + String(now2.getMinutes()).padStart(2, '0');
+          var check = document.createElement('span');
+          check.className = 'msg-check';
+          check.textContent = '✓';
+          metaOut.appendChild(check);
+
+          var textOut = document.createElement('div');
+          textOut.className = 'msg-text';
+          textOut.textContent = 'Thanks — we got your order request.';
+          bubbleOut.appendChild(metaOut);
+          bubbleOut.appendChild(textOut);
+
+          rowOut.appendChild(bubbleOut);
+          rowOut.style.animationDelay = (i * 220 + 420) + 'ms';
+          container.appendChild(rowOut);
+
+          // remove outgoing after animation
+          rowOut.addEventListener('animationend', function () {
+            if (rowOut && rowOut.parentNode) rowOut.parentNode.removeChild(rowOut);
+          });
+        }, 420 + (i * 180));
+
+        // remove incoming after animation
+        rowIn.addEventListener('animationend', function () {
+          if (rowIn && rowIn.parentNode) rowIn.parentNode.removeChild(rowIn);
         });
       });
     } catch (e) {
