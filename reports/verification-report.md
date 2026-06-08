@@ -22,6 +22,11 @@
 - All product image sources are local file URLs under `src/assets/images`.
 - Screenshot of the rendered page was saved to `reports/verification-products.png`.
 
+## Hero preview mapping
+- Slide 1 (Chicken Shawarma · ₦2,500) → `chicken-shawarma.jpg`
+- Slide 2 (Sneakers · ₦18,000) → `sneakers.jpg`
+- Slide 3 (Perfume · ₦10,000) → `perfume.jpg`
+
 ## Notes
-- This change replaces previously unrelated or placeholder product images with realistic, premium product photos.
+- Hero images must use the same product photos as the catalog (not unrelated stock photos).
 - No external image URLs are used for product cards in production.
