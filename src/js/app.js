@@ -247,6 +247,7 @@
       setImageWithFallback(img, p.image, p.fallback || IMG + 'product-fallback.svg');
       const btn = node.querySelector('.order-btn');
       btn.href = makeWaLink('I want to order ' + p.name + ' (' + p.price + ')');
+      btn.setAttribute('aria-label', 'Order ' + p.name + ' on WhatsApp');
       btn.setAttribute('target', '_blank');
       btn.setAttribute('rel', 'noopener noreferrer');
       // spawn a single floating message on click to show demand before opening WhatsApp
