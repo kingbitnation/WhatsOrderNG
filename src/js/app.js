@@ -93,74 +93,103 @@
 
   /* Floating message helper: shows small WhatsApp-style text bubbles under the hero preview */
   var _lastFloating = 0;
-  function spawnFloatingMessages(texts) {
+  /**
+   * spawnFloatingMessages(texts, options)
+   * - texts: array of string or { text, avatar, reply }
+   * - options: { force: boolean, reply: string }
+   */
+  function spawnFloatingMessages(texts, options) {
     try {
       var now = Date.now();
-      // throttle spawns to avoid clutter (1s)
-      if (now - _lastFloating < 900) return;
+      options = options || {};
+      // throttle spawns to avoid clutter (900ms), unless forced
+      if (!options.force && (now - _lastFloating < 900)) return;
       _lastFloating = now;
 
       var container = document.getElementById('hero-floating');
       if (!container || !texts || !texts.length) return;
 
+      // clear any existing messages so new preview shows fresh content
+      container.innerHTML = '';
+
       // limit to max 2 short bubbles for a tidy appearance
-      texts.slice(0, 2).forEach(function (t, i) {
+      texts.slice(0, 2).forEach(function (raw, i) {
+        var item = typeof raw === 'string' ? { text: raw } : raw || {};
+        var incomingText = String(item.text || '').slice(0, 120);
+        var avatarSrc = item.avatar || null;
+        var sellerReply = item.reply || options.reply || 'Thanks — we got your order request.';
+
         // incoming (customer)
         var rowIn = document.createElement('div');
         rowIn.className = 'msg-row incoming';
+
         var avatar = document.createElement('div');
         avatar.className = 'msg-avatar';
-        var initials = (t.match(/\b(\w)/g) || []).slice(0,2).join('').toUpperCase();
-        avatar.textContent = initials || 'C';
+        if (avatarSrc) {
+          var aimg = document.createElement('img');
+          aimg.src = avatarSrc;
+          aimg.alt = 'avatar';
+          aimg.loading = 'lazy';
+          aimg.style.width = '100%';
+          aimg.style.height = '100%';
+          aimg.style.objectFit = 'cover';
+          avatar.appendChild(aimg);
+        } else {
+          var initials = (incomingText.match(/\b(\w)/g) || []).slice(0,2).join('').toUpperCase();
+          avatar.textContent = initials || 'C';
+        }
 
         var bubbleIn = document.createElement('div');
         bubbleIn.className = 'msg-bubble incoming';
         var metaIn = document.createElement('div');
         metaIn.className = 'msg-meta';
-        var now = new Date();
-        metaIn.textContent = 'Customer · ' + now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+        var nowDate = new Date();
+        metaIn.textContent = 'Customer · ' + nowDate.getHours() + ':' + String(nowDate.getMinutes()).padStart(2, '0');
         var textIn = document.createElement('div');
         textIn.className = 'msg-text';
-        textIn.textContent = t;
+        textIn.textContent = incomingText;
         bubbleIn.appendChild(metaIn);
         bubbleIn.appendChild(textIn);
 
         rowIn.appendChild(avatar);
         rowIn.appendChild(bubbleIn);
-        rowIn.style.animationDelay = (i * 220) + 'ms';
+        // small stagger so messages don't all appear at once
+        rowIn.style.animationDelay = (150 + i * 120) + 'ms';
         container.appendChild(rowIn);
 
-        // outgoing (seller) short confirm message after a short delay
-        setTimeout(function () {
-          var rowOut = document.createElement('div');
-          rowOut.className = 'msg-row outgoing';
+        // outgoing (seller) confirm message after a short delay
+        (function (delay, replyText, idx) {
+          setTimeout(function () {
+            var rowOut = document.createElement('div');
+            rowOut.className = 'msg-row outgoing';
 
-          var bubbleOut = document.createElement('div');
-          bubbleOut.className = 'msg-bubble outgoing';
-          var metaOut = document.createElement('div');
-          metaOut.className = 'msg-meta outgoing';
-          var now2 = new Date();
-          metaOut.textContent = 'You · ' + now2.getHours() + ':' + String(now2.getMinutes()).padStart(2, '0');
-          var check = document.createElement('span');
-          check.className = 'msg-check';
-          check.textContent = '✓';
-          metaOut.appendChild(check);
+            var bubbleOut = document.createElement('div');
+            bubbleOut.className = 'msg-bubble outgoing';
+            var metaOut = document.createElement('div');
+            metaOut.className = 'msg-meta outgoing';
+            var now2 = new Date();
+            metaOut.textContent = 'You · ' + now2.getHours() + ':' + String(now2.getMinutes()).padStart(2, '0');
+            var check = document.createElement('span');
+            check.className = 'msg-check';
+            check.textContent = '✓';
+            metaOut.appendChild(check);
 
-          var textOut = document.createElement('div');
-          textOut.className = 'msg-text';
-          textOut.textContent = 'Thanks — we got your order request.';
-          bubbleOut.appendChild(metaOut);
-          bubbleOut.appendChild(textOut);
+            var textOut = document.createElement('div');
+            textOut.className = 'msg-text';
+            textOut.textContent = replyText;
+            bubbleOut.appendChild(metaOut);
+            bubbleOut.appendChild(textOut);
 
-          rowOut.appendChild(bubbleOut);
-          rowOut.style.animationDelay = (i * 220 + 420) + 'ms';
-          container.appendChild(rowOut);
+            rowOut.appendChild(bubbleOut);
+            rowOut.style.animationDelay = (idx * 120 + 420) + 'ms';
+            container.appendChild(rowOut);
 
-          // remove outgoing after animation
-          rowOut.addEventListener('animationend', function () {
-            if (rowOut && rowOut.parentNode) rowOut.parentNode.removeChild(rowOut);
-          });
-        }, 420 + (i * 180));
+            // remove outgoing after animation
+            rowOut.addEventListener('animationend', function () {
+              if (rowOut && rowOut.parentNode) rowOut.parentNode.removeChild(rowOut);
+            });
+          }, delay);
+        })(600 + i * 260, sellerReply, i);
 
         // remove incoming after animation
         rowIn.addEventListener('animationend', function () {
@@ -199,7 +228,11 @@
       btn.setAttribute('rel', 'noopener noreferrer');
       // spawn a single floating message on click to show demand before opening WhatsApp
       btn.addEventListener('click', function () {
-        try { spawnFloatingMessages(['Interested — ' + p.name]); } catch (e) {}
+        try {
+          spawnFloatingMessages([
+            { text: 'Interested — ' + p.name, avatar: p.image, reply: 'I\u2019ll confirm your order shortly.' }
+          ], { force: true });
+        } catch (e) {}
       });
       grid.appendChild(node);
     });
@@ -224,10 +257,10 @@
     // show a few floating demand messages related to the current preview
     var baseName = (item.title || '').split('·')[0].trim();
     var msgs = [
-      'Is ' + baseName + ' in stock?',
-      'Price for ' + baseName + '?'
+      { text: 'Is ' + baseName + ' in stock?', avatar: item.image },
+      { text: 'Price for ' + baseName + '?', avatar: item.image }
     ];
-    spawnFloatingMessages(msgs);
+    spawnFloatingMessages(msgs, { force: true, reply: 'Thanks — we got your order request.' });
   }
 
   if (heroPreviewItems.length) {
