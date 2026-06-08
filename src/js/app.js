@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const cfg = window.WHATSAPP_CONFIG || { phone: '2347040155877', display: '+234 704 015 5877' };
+  const cfg = window.WHATSAPP_CONFIG || { phone: '2348164230088', display: '+234 816 423 0088' };
   const PHONE_NUMBER = String(cfg.phone).replace(/\D/g, '');
 
   function makeWaLink(text) {
@@ -91,6 +91,29 @@
     }
   }
 
+  /* Floating message helper: shows small WhatsApp-style text bubbles under the hero preview */
+  function spawnFloatingMessages(texts) {
+    try {
+      var container = document.getElementById('hero-floating');
+      if (!container || !texts || !texts.length) return;
+
+      texts.forEach(function (t, i) {
+        var el = document.createElement('span');
+        el.className = 'floating-message ' + (i % 2 === 0 ? 'drift-left' : 'drift-right');
+        el.textContent = t;
+        // slight stagger
+        el.style.animationDelay = (i * 240) + 'ms';
+        container.appendChild(el);
+        // remove after animation completes
+        el.addEventListener('animationend', function () {
+          if (el && el.parentNode) el.parentNode.removeChild(el);
+        });
+      });
+    } catch (e) {
+      // fail silently
+    }
+  }
+
   document.getElementById('year').textContent = String(new Date().getFullYear());
   applyPhoneToPage();
 
@@ -116,6 +139,10 @@
       btn.href = makeWaLink('I want to order ' + p.name + ' (' + p.price + ')');
       btn.setAttribute('target', '_blank');
       btn.setAttribute('rel', 'noopener noreferrer');
+      // spawn a single floating message on click to show demand before opening WhatsApp
+      btn.addEventListener('click', function () {
+        try { spawnFloatingMessages(['New interest: ' + p.name]); } catch (e) {}
+      });
       grid.appendChild(node);
     });
   }
@@ -136,6 +163,14 @@
       setImageWithFallback(heroPreviewImage, item.image, item.fallback || IMG + 'product-fallback.svg');
       heroPreviewImage.alt = item.title;
     }
+    // show a few floating demand messages related to the current preview
+    var baseName = (item.title || '').split('·')[0].trim();
+    var msgs = [
+      baseName + ' — is this available?',
+      'How much for ' + baseName + '?',
+      'I want to order ' + baseName
+    ];
+    spawnFloatingMessages(msgs);
   }
 
   if (heroPreviewItems.length) {

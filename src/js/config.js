@@ -3,6 +3,6 @@
  * Format: country code + number, no + or spaces (e.g. 2348012345678)
  */
 window.WHATSAPP_CONFIG = {
-  phone: '2347040155877',
-  display: '+234 704 015 5877'
+  phone: '2348164230088',
+  display: '+234 816 423 0088'
 };

@@ -409,6 +409,43 @@ body {
   overflow: hidden;
 }
 
+/* Floating WhatsApp demand messages under the hero preview */
+.hero-floating {
+  position: relative;
+  margin-top: 0.5rem;
+  height: 3.25rem;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.floating-message {
+  display: inline-block;
+  padding: 0.45rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(16,185,129,0.12);
+  color: #bbf7d0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 20px rgba(2,7,23,0.28);
+  transform-origin: center bottom;
+  animation: floatUp 3600ms cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(6px) scale(0.98); opacity: 0; }
+  10% { opacity: 1; }
+  70% { transform: translateY(-36px) scale(1); opacity: 1; }
+  100% { transform: translateY(-64px) scale(0.98); opacity: 0; }
+}
+
+/* Slight horizontal drift for variety */
+.floating-message.drift-left { animation-name: floatUp; transform: translateX(-6px); }
+.floating-message.drift-right { animation-name: floatUp; transform: translateX(6px); }
+
 .hero-preview-img,
 .product-img {
   opacity: 0;
