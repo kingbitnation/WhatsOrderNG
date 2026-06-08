@@ -117,7 +117,19 @@
         var item = typeof raw === 'string' ? { text: raw } : raw || {};
         var incomingText = String(item.text || '').slice(0, 120);
         var avatarSrc = item.avatar || null;
-        var sellerReply = item.reply || options.reply || 'Thanks — we got your order request.';
+        var sellerReply = item.reply || options.reply || null;
+
+        // auto-pick reply when not explicitly provided
+        if (!sellerReply) {
+          var lower = incomingText.toLowerCase();
+          if (lower.indexOf('stock') !== -1 || lower.indexOf('in stock') !== -1) {
+            sellerReply = item.price ? ('Yes — available now. Price is ' + item.price + '. Want to reserve?') : 'Yes — available now. Want to reserve?';
+          } else if (lower.indexOf('price') !== -1 || lower.indexOf('how much') !== -1) {
+            sellerReply = item.price ? ('It\'s ' + item.price + ' — ready to ship.') : 'I\'ll confirm the price and get back to you now.';
+          } else {
+            sellerReply = 'Thanks — we got your order request.';
+          }
+        }
 
         // incoming (customer)
         var rowIn = document.createElement('div');
@@ -256,11 +268,15 @@
     }
     // show a few floating demand messages related to the current preview
     var baseName = (item.title || '').split('·')[0].trim();
+    // try to find product price/avatar by matching products list
+    var found = products.find(function (p) {
+      return p.name && baseName && p.name.toLowerCase().indexOf(baseName.toLowerCase()) !== -1;
+    }) || {};
     var msgs = [
-      { text: 'Is ' + baseName + ' in stock?', avatar: item.avatar || item.image },
-      { text: 'Price for ' + baseName + '?', avatar: item.avatar || item.image }
+      { text: 'Is ' + baseName + ' in stock?', avatar: found.avatar || item.avatar || item.image, price: found.price },
+      { text: 'Price for ' + baseName + '?', avatar: found.avatar || item.avatar || item.image, price: found.price }
     ];
-    spawnFloatingMessages(msgs, { force: true, reply: 'Thanks — we got your order request.' });
+    spawnFloatingMessages(msgs, { force: true });
   }
 
   if (heroPreviewItems.length) {
