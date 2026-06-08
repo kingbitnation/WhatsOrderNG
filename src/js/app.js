@@ -92,17 +92,33 @@
   }
 
   /* Floating message helper: shows small WhatsApp-style text bubbles under the hero preview */
+  var _lastFloating = 0;
   function spawnFloatingMessages(texts) {
     try {
+      var now = Date.now();
+      // throttle spawns to avoid clutter (1s)
+      if (now - _lastFloating < 900) return;
+      _lastFloating = now;
+
       var container = document.getElementById('hero-floating');
       if (!container || !texts || !texts.length) return;
 
-      texts.forEach(function (t, i) {
+      // limit to max 2 short bubbles for a tidy appearance
+      texts.slice(0, 2).forEach(function (t, i) {
         var el = document.createElement('span');
-        el.className = 'floating-message ' + (i % 2 === 0 ? 'drift-left' : 'drift-right');
-        el.textContent = t;
-        // slight stagger
-        el.style.animationDelay = (i * 240) + 'ms';
+        el.className = 'floating-message' + (t.length > 26 ? ' long' : ' small');
+        // include a small white dot (visual cue) then the text
+        var dot = document.createElement('span');
+        dot.className = 'wa-dot';
+        dot.textContent = '✓';
+        var txt = document.createElement('span');
+        txt.className = 'wa-text';
+        txt.textContent = t;
+        el.appendChild(dot);
+        el.appendChild(txt);
+
+        // small stagger for nicer rhythm
+        el.style.animationDelay = (i * 220) + 'ms';
         container.appendChild(el);
         // remove after animation completes
         el.addEventListener('animationend', function () {
@@ -110,7 +126,7 @@
         });
       });
     } catch (e) {
-      // fail silently
+      console.error(e);
     }
   }
 
@@ -141,7 +157,7 @@
       btn.setAttribute('rel', 'noopener noreferrer');
       // spawn a single floating message on click to show demand before opening WhatsApp
       btn.addEventListener('click', function () {
-        try { spawnFloatingMessages(['New interest: ' + p.name]); } catch (e) {}
+        try { spawnFloatingMessages(['Interested — ' + p.name]); } catch (e) {}
       });
       grid.appendChild(node);
     });
@@ -166,9 +182,8 @@
     // show a few floating demand messages related to the current preview
     var baseName = (item.title || '').split('·')[0].trim();
     var msgs = [
-      baseName + ' — is this available?',
-      'How much for ' + baseName + '?',
-      'I want to order ' + baseName
+      'Is ' + baseName + ' in stock?',
+      'Price for ' + baseName + '?'
     ];
     spawnFloatingMessages(msgs);
   }

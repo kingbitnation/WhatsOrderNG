@@ -421,30 +421,43 @@ body {
   gap: 0.5rem;
 }
 
+/* Refined floating WhatsApp demand messages */
 .floating-message {
-  display: inline-block;
-  padding: 0.45rem 0.65rem;
-  border-radius: 999px;
-  background: rgba(16,185,129,0.12);
-  color: #bbf7d0;
-  font-size: 0.78rem;
-  font-weight: 700;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 8px 20px rgba(2,7,23,0.28);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 12rem;
+  background: linear-gradient(135deg, #06b656 0%, #11b886 100%);
+  color: #042617;
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: 0 10px 28px rgba(4, 20, 12, 0.18);
   transform-origin: center bottom;
-  animation: floatUp 3600ms cubic-bezier(.2,.9,.2,1) forwards;
+  animation: floatUp 3200ms cubic-bezier(.2,.9,.2,1) forwards;
+  opacity: 0;
+}
+
+.floating-message .wa-dot {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 0.9rem;
+  background: rgba(255,255,255,0.95);
+  display: inline-grid;
+  place-items: center;
+  font-size: 0.65rem;
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(6px) scale(0.98); opacity: 0; }
-  10% { opacity: 1; }
-  70% { transform: translateY(-36px) scale(1); opacity: 1; }
+  0% { transform: translateY(8px) scale(0.98); opacity: 0; }
+  12% { opacity: 1; }
+  65% { transform: translateY(-42px) scale(1); opacity: 1; }
   100% { transform: translateY(-64px) scale(0.98); opacity: 0; }
 }
 
-/* Slight horizontal drift for variety */
-.floating-message.drift-left { animation-name: floatUp; transform: translateX(-6px); }
-.floating-message.drift-right { animation-name: floatUp; transform: translateX(6px); }
+/* Small variations for styling but avoid strong horizontal drift */
+.floating-message.small { padding: 0.28rem 0.6rem; font-size: 0.78rem; }
+.floating-message.long { max-width: 12.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .hero-preview-img,
 .product-img {
