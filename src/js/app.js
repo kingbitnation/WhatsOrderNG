@@ -118,6 +118,7 @@
         var incomingText = String(item.text || '').slice(0, 120);
         var avatarSrc = item.avatar || null;
         var sellerReply = item.reply || options.reply || null;
+        var initials = (incomingText.match(/\b(\w)/g) || []).slice(0,2).join('').toUpperCase();
 
         // auto-pick reply when not explicitly provided
         if (!sellerReply) {
@@ -145,9 +146,15 @@
           aimg.style.width = '100%';
           aimg.style.height = '100%';
           aimg.style.objectFit = 'cover';
+          // if image fails to load, fall back to initials
+          aimg.onerror = function () {
+            try {
+              if (aimg && aimg.parentNode) aimg.parentNode.removeChild(aimg);
+            } catch (e) {}
+            avatar.textContent = initials || 'C';
+          };
           avatar.appendChild(aimg);
         } else {
-          var initials = (incomingText.match(/\b(\w)/g) || []).slice(0,2).join('').toUpperCase();
           avatar.textContent = initials || 'C';
         }
 
