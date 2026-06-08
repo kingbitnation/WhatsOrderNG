@@ -105,24 +105,39 @@
 
       // limit to max 2 short bubbles for a tidy appearance
       texts.slice(0, 2).forEach(function (t, i) {
-        var el = document.createElement('span');
-        el.className = 'floating-message' + (t.length > 26 ? ' long' : ' small');
-        // include a small white dot (visual cue) then the text
-        var dot = document.createElement('span');
-        dot.className = 'wa-dot';
-        dot.textContent = '✓';
-        var txt = document.createElement('span');
-        txt.className = 'wa-text';
-        txt.textContent = t;
-        el.appendChild(dot);
-        el.appendChild(txt);
+        var msgWrap = document.createElement('div');
+        msgWrap.className = 'floating-message';
+
+        // avatar with initials
+        var avatar = document.createElement('div');
+        avatar.className = 'msg-avatar';
+        var initials = (t.match(/\b(\w)/g) || []).slice(0,2).join('').toUpperCase();
+        avatar.textContent = initials || 'W';
+
+        // bubble with meta and text
+        var bubble = document.createElement('div');
+        bubble.className = 'msg-bubble';
+        var meta = document.createElement('div');
+        meta.className = 'msg-meta';
+        var now = new Date();
+        meta.textContent = 'Customer · ' + now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+        var textNode = document.createElement('div');
+        textNode.className = 'msg-text';
+        textNode.textContent = t;
+        bubble.appendChild(meta);
+        bubble.appendChild(textNode);
+
+        // append in WhatsApp-like order: avatar then bubble
+        msgWrap.appendChild(avatar);
+        msgWrap.appendChild(bubble);
 
         // small stagger for nicer rhythm
-        el.style.animationDelay = (i * 220) + 'ms';
-        container.appendChild(el);
+        msgWrap.style.animationDelay = (i * 220) + 'ms';
+        container.appendChild(msgWrap);
+
         // remove after animation completes
-        el.addEventListener('animationend', function () {
-          if (el && el.parentNode) el.parentNode.removeChild(el);
+        msgWrap.addEventListener('animationend', function () {
+          if (msgWrap && msgWrap.parentNode) msgWrap.parentNode.removeChild(msgWrap);
         });
       });
     } catch (e) {
