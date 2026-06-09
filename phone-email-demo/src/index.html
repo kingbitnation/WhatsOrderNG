@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WhatsOrderNG — WhatsApp Storefront for Nigerian Businesses</title>
   <meta name="description" content="Launch a premium WhatsApp storefront so customers browse products and order instantly. Live in 48 hours." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://yourdomain.example/" />
+  <meta property="og:url" content="https://yourdomain.example/" />
+  <meta property="og:title" content="WhatsOrderNG — Turn WhatsApp Into Your Best Sales Channel" />
+  <meta property="og:description" content="Launch a premium storefront that helps customers browse products and order instantly through WhatsApp." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WhatsOrderNG — Turn WhatsApp Into Your Best Sales Channel" />
+  <meta name="twitter:description" content="Launch a premium storefront that helps customers browse products and order instantly through WhatsApp." />
+  <meta name="twitter:image:alt" content="WhatsOrderNG storefront preview" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#020617" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,8 +29,8 @@
 
   <header class="site-header">
     <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
-      <a href="#" class="flex items-center gap-3 shrink-0" aria-label="WhatsOrderNG home">
-        <img src="logo.svg" alt="" width="44" height="44" class="h-11 w-11 rounded-xl border border-white/10 bg-slate-950" />
+      <a href="#main-content" class="flex items-center gap-3 shrink-0" aria-label="WhatsOrderNG home">
+          <img src="logo.svg" alt="WhatsOrderNG logo" width="44" height="44" class="h-11 w-11 rounded-xl border border-white/10 bg-slate-950" />
         <div>
           <p class="text-sm font-bold text-white">WhatsOrderNG</p>
           <p class="text-xs text-slate-500">WhatsApp commerce</p>
@@ -33,7 +44,7 @@
         <a href="#faq" class="nav-link">FAQ</a>
       </nav>
       <div class="hidden lg:flex items-center gap-3">
-        <a id="header-whatsapp" href="#" class="btn-primary px-5 py-2.5 text-sm">Start Selling</a>
+          <a id="header-whatsapp" href="#" role="button" class="btn-primary px-5 py-2.5 text-sm" aria-label="Start selling on WhatsApp">Start Selling</a>
       </div>
       <button id="nav-toggle" type="button" class="nav-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -46,30 +57,30 @@
     <a href="#trust" class="nav-link">Why us</a>
     <a href="#products" class="nav-link">Products</a>
     <a href="#pricing" class="nav-link">Pricing</a>
-    <a id="mobile-whatsapp" href="#" class="mt-3 btn-primary w-full py-3 text-sm">Start Selling</a>
+    <a id="mobile-whatsapp" href="#" role="button" class="mt-3 btn-primary w-full py-3 text-sm" aria-label="Start selling on WhatsApp">Start Selling</a>
   </nav>
 
   <main id="main-content" class="max-w-6xl mx-auto px-4 py-8 sm:py-12 lg:py-14">
     <!-- Hero -->
-    <section class="hero-section grid gap-10 lg:grid-cols-2 lg:gap-14 items-center" aria-labelledby="hero-heading">
-      <div class="space-y-6 lg:space-y-7">
+    <section class="hero-section grid gap-6 lg:grid-cols-2 lg:gap-10 items-center" aria-labelledby="hero-heading">
+      <div class="space-y-5 lg:space-y-6">
         <div class="badge-pill">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true"></span>
           48-hour launch · Naira pricing · No app required
         </div>
-        <div class="space-y-4 max-w-xl">
-          <h1 id="hero-heading" class="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight leading-[1.12] text-white">
+        <div class="space-y-3 max-w-xl">
+          <h1 id="hero-heading" class="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight leading-[1.08] text-white">
             Turn WhatsApp Into Your Best Sales Channel
           </h1>
-          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-lg">
+          <p class="text-base sm:text-lg text-slate-300 leading-8 max-w-lg tracking-tight">
             Launch a premium storefront that helps customers browse products and order instantly through WhatsApp.
           </p>
         </div>
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-          <a id="primary-whatsapp" href="#" class="btn-primary px-7 py-3.5 text-base">Start Selling</a>
-          <a href="#products" class="btn-secondary px-7 py-3.5 text-base">View Demo</a>
+          <a id="primary-whatsapp" href="#" role="button" class="btn-primary hero-btn px-6 py-3 text-base">Start Selling</a>
+          <a href="#products" class="btn-secondary hero-btn px-6 py-3 text-base">Try Live Store Demo</a>
         </div>
-        <div class="hero-cta-metrics grid grid-cols-2 gap-3 mt-5">
+        <div class="hero-cta-metrics grid grid-cols-2 gap-3 mt-4">
           <div class="metric-pill">✓ 50+ Businesses Served</div>
           <div class="metric-pill">✓ 24/7 WhatsApp Ordering</div>
           <div class="metric-pill">✓ 48-Hour Setup</div>
@@ -89,32 +100,74 @@
               <p class="mt-1 text-sm font-semibold text-white" id="hero-order-title">Chicken Shawarma · ₦2,500</p>
               <span id="hero-order-status" class="mt-2 inline-block rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-semibold text-emerald-300">Received</span>
             </div>
-            <img id="hero-preview-image" class="hero-preview-img mb-3" src="assets/images/chicken-shawarma.jpg" alt="Chicken Shawarma order preview" width="320" height="240" decoding="async" />
+            <img id="hero-preview-image" class="hero-preview-img mb-3" src="assets/images/chicken-shawarma.jpg" alt="Chicken Shawarma order preview" width="320" height="240" decoding="async" loading="eager" fetchpriority="high" />
+            <div id="hero-floating" class="hero-floating" aria-hidden="true"></div>
             <p class="text-center text-xs text-slate-500">Tap any product → order opens in WhatsApp</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Business types -->
+    <section id="business-types" class="mt-10 sm:mt-12 reveal" aria-labelledby="business-types-heading">
+      <div class="max-w-2xl mb-6">
+        <p class="section-eyebrow">Perfect For Businesses Like Yours</p>
+        <h2 id="business-types-heading" class="mt-2 text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          Perfect for businesses like yours
+        </h2>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+        <article class="business-card glass-card rounded-3xl p-5 card-hover">
+          <div class="business-card-icon">👗</div>
+          <p class="mt-4 font-semibold text-white">Fashion Stores</p>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Premium showcases for style and apparel sellers.</p>
+        </article>
+        <article class="business-card glass-card rounded-3xl p-5 card-hover">
+          <div class="business-card-icon">🌸</div>
+          <p class="mt-4 font-semibold text-white">Perfume Brands</p>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Luxury product pages that feel high-end on mobile.</p>
+        </article>
+        <article class="business-card glass-card rounded-3xl p-5 card-hover">
+          <div class="business-card-icon">🍔</div>
+          <p class="mt-4 font-semibold text-white">Food Vendors</p>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Fast ordering for menus, specials, and delivery requests.</p>
+        </article>
+        <article class="business-card glass-card rounded-3xl p-5 card-hover">
+          <div class="business-card-icon">📱</div>
+          <p class="mt-4 font-semibold text-white">Gadget Sellers</p>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Clear product calls-to-action for electronics and accessories.</p>
+        </article>
+        <article class="business-card glass-card rounded-3xl p-5 card-hover">
+          <div class="business-card-icon">💄</div>
+          <p class="mt-4 font-semibold text-white">Beauty Brands</p>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Elegant catalog pages that match premium beauty shops.</p>
+        </article>
+      </div>
+    </section>
+
     <!-- Trust metrics and value cards -->
-    <section id="trust" class="mt-14 sm:mt-16 reveal" aria-labelledby="trust-heading">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div class="glass-card metric-card rounded-2xl">
-          <p class="metric-value">50+</p>
-          <p class="metric-label">Businesses served</p>
-        </div>
-        <div class="glass-card metric-card rounded-2xl">
-          <p class="metric-value">500+</p>
-          <p class="metric-label">Orders processed</p>
-        </div>
-        <div class="glass-card metric-card rounded-2xl">
-          <p class="metric-value">24/7</p>
-          <p class="metric-label">Ordering available</p>
-        </div>
-        <div class="glass-card metric-card rounded-2xl">
-          <p class="metric-value">48h</p>
-          <p class="metric-label">Setup time</p>
-        </div>
+    <section id="trust" class="mt-10 sm:mt-12 reveal" aria-labelledby="trust-heading">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+        <article class="trust-card glass-card rounded-3xl p-4 card-hover">
+          <div class="trust-card-icon">🏆</div>
+          <p class="mt-3 text-sm font-semibold text-white">50+ Businesses Served</p>
+          <p class="mt-2 text-xs text-slate-400">Trusted by local shops and startups.</p>
+        </article>
+        <article class="trust-card glass-card rounded-3xl p-4 card-hover">
+          <div class="trust-card-icon">💬</div>
+          <p class="mt-3 text-sm font-semibold text-white">24/7 WhatsApp Ordering</p>
+          <p class="mt-2 text-xs text-slate-400">Customers can message and order anytime.</p>
+        </article>
+        <article class="trust-card glass-card rounded-3xl p-4 card-hover">
+          <div class="trust-card-icon">⚡</div>
+          <p class="mt-3 text-sm font-semibold text-white">48-Hour Setup</p>
+          <p class="mt-2 text-xs text-slate-400">Go live quickly with a polished storefront.</p>
+        </article>
+        <article class="trust-card glass-card rounded-3xl p-4 card-hover">
+          <div class="trust-card-icon">📱</div>
+          <p class="mt-3 text-sm font-semibold text-white">Mobile Optimized</p>
+          <p class="mt-2 text-xs text-slate-400">Designed for fast browsing and quick orders.</p>
+        </article>
       </div>
 
       <h2 id="trust-heading" class="sr-only">Why businesses choose us</h2>
@@ -156,13 +209,68 @@
                 <img class="product-img" src="assets/images/product-fallback.svg" alt="" loading="lazy" width="400" height="300" decoding="async" />
               </div>
               <h3 class="product-name font-semibold text-white text-sm sm:text-base leading-snug"></h3>
-              <p class="product-price mt-2"></p>
+              <p class="product-desc mt-2 text-sm text-slate-400 leading-relaxed"></p>
+              <p class="product-price mt-3"></p>
             </div>
             <div class="card-footer">
-              <a class="order-btn" href="#">Order on WhatsApp</a>
+              <a class="order-btn" href="#" role="button">Order on WhatsApp</a>
             </div>
           </article>
         </template>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="mt-14 sm:mt-16 reveal" aria-labelledby="testimonials-heading">
+      <div class="max-w-2xl mb-8">
+        <p class="section-eyebrow">Testimonials</p>
+        <h2 id="testimonials-heading" class="mt-2 text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          Trusted by growing businesses
+        </h2>
+        <p class="mt-3 text-slate-400 leading-relaxed max-w-xl">
+          Feedback from business owners who shifted orders to WhatsApp and now close more customers faster.
+        </p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="testimonial-card glass-card rounded-3xl p-6 card-hover">
+          <div class="testimonial-header">
+            <img src="assets/images/avatars/person1.jpg" alt="Sarah" loading="lazy" width="48" height="48" class="testimonial-avatar" />
+            <div>
+              <p class="font-semibold text-white">Sarah</p>
+              <p class="text-xs text-slate-400">Fashion Store Owner</p>
+            </div>
+          </div>
+          <p class="testimonial-stars">★★★★★</p>
+          <p class="mt-4 text-lg font-semibold text-white leading-snug">
+            "Customers now order without asking for prices first. Sales conversations are much smoother."
+          </p>
+        </article>
+        <article class="testimonial-card glass-card rounded-3xl p-6 card-hover">
+          <div class="testimonial-header">
+            <img src="assets/images/avatars/person2.jpg" alt="Adebayo" loading="lazy" width="48" height="48" class="testimonial-avatar" />
+            <div>
+              <p class="font-semibold text-white">Adebayo</p>
+              <p class="text-xs text-slate-400">Perfume Brand Founder</p>
+            </div>
+          </div>
+          <p class="testimonial-stars">★★★★★</p>
+          <p class="mt-4 text-lg font-semibold text-white leading-snug">
+            "The storefront feels premium and our brand looks polished. Customers place orders faster and with more confidence."
+          </p>
+        </article>
+        <article class="testimonial-card glass-card rounded-3xl p-6 card-hover">
+          <div class="testimonial-header">
+            <img src="assets/images/avatars/person3.jpg" alt="Chiamaka" loading="lazy" width="48" height="48" class="testimonial-avatar" />
+            <div>
+              <p class="font-semibold text-white">Chiamaka</p>
+              <p class="text-xs text-slate-400">Food Vendor</p>
+            </div>
+          </div>
+          <p class="testimonial-stars">★★★★★</p>
+          <p class="mt-4 text-lg font-semibold text-white leading-snug">
+            "The process is clean, fast, and the order flow is simple for customers. Our WhatsApp sales feel more professional."
+          </p>
+        </article>
       </div>
     </section>
 
@@ -239,51 +347,6 @@
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section id="testimonials" class="mt-14 sm:mt-16 reveal" aria-labelledby="testimonials-heading">
-      <div class="max-w-2xl mb-8">
-        <p class="section-eyebrow">Customer stories</p>
-        <h2 id="testimonials-heading" class="mt-2 text-2xl sm:text-3xl font-bold text-white tracking-tight">
-          Trusted by sellers across Nigeria
-        </h2>
-      </div>
-      <div class="grid gap-4 lg:grid-cols-3">
-        <blockquote class="glass-card rounded-2xl p-6 card-hover">
-          <p class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</p>
-          <p class="mt-4 text-slate-300 text-sm leading-relaxed">“Orders moved to WhatsApp within a week. Customers stopped asking ‘how much?’ in comments—they just tap and chat.”</p>
-          <footer class="mt-5 flex items-center gap-3">
-            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 text-sm font-bold text-emerald-300" aria-hidden="true">AR</span>
-            <div>
-              <cite class="not-italic font-semibold text-white text-sm">Aisha R.</cite>
-              <p class="text-xs text-slate-500">Lagos Street Eats</p>
-            </div>
-          </footer>
-        </blockquote>
-        <blockquote class="glass-card rounded-2xl p-6 card-hover">
-          <p class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</p>
-          <p class="mt-4 text-slate-300 text-sm leading-relaxed">“Looks like a proper online shop, not a link-in-bio page. My fashion brand finally feels premium on mobile.”</p>
-          <footer class="mt-5 flex items-center gap-3">
-            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 text-sm font-bold text-sky-300" aria-hidden="true">MB</span>
-            <div>
-              <cite class="not-italic font-semibold text-white text-sm">Mohammed B.</cite>
-              <p class="text-xs text-slate-500">Naija Fashion Co.</p>
-            </div>
-          </footer>
-        </blockquote>
-        <blockquote class="glass-card rounded-2xl p-6 card-hover">
-          <p class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</p>
-          <p class="mt-4 text-slate-300 text-sm leading-relaxed">“Setup was fast. I update products myself and every order still lands in the same WhatsApp thread.”</p>
-          <footer class="mt-5 flex items-center gap-3">
-            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 text-sm font-bold text-amber-300" aria-hidden="true">SR</span>
-            <div>
-              <cite class="not-italic font-semibold text-white text-sm">Sade R.</cite>
-              <p class="text-xs text-slate-500">Premium Gifts NG</p>
-            </div>
-          </footer>
-        </blockquote>
-      </div>
-    </section>
-
     <!-- FAQ -->
     <section id="faq" class="mt-14 sm:mt-16 reveal" aria-labelledby="faq-heading">
       <div class="max-w-2xl mb-8">
@@ -353,41 +416,44 @@
         </p>
       </div>
       <div class="grid gap-4 lg:grid-cols-3">
-        <article class="plan-card glass-card rounded-3xl p-6">
+        <article class="plan-card glass-card rounded-3xl p-6 card-hover">
           <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Starter</p>
           <p class="mt-4 text-3xl font-semibold text-white">WhatsApp Storefront</p>
-          <p class="mt-2 text-slate-400">Up to 20 products, fast launch, and mobile-ready checkout.</p>
-          <ul class="mt-6 space-y-3 text-sm text-slate-300">
-            <li>• WhatsApp Storefront</li>
-            <li>• Up to 20 Products</li>
-            <li>• Mobile Optimized</li>
-            <li>• WhatsApp Integration</li>
+          <p class="mt-3 text-slate-400">Up to 20 products, fast launch, and mobile-ready checkout.</p>
+          <ul class="mt-6 space-y-3 text-sm text-slate-300 plan-feature-list">
+            <li>WhatsApp Storefront</li>
+            <li>Up to 20 Products</li>
+            <li>Mobile Optimized</li>
+            <li>WhatsApp Integration</li>
           </ul>
-          <a href="#" class="mt-8 inline-flex btn-secondary justify-center w-full py-3 text-sm font-semibold">Choose Starter</a>
+          <a id="choose-starter" href="#" role="button" class="mt-8 inline-flex btn-secondary justify-center w-full py-3 text-sm font-semibold" aria-label="Choose Starter plan">Choose Starter</a>
         </article>
-        <article class="plan-card plan-highlight rounded-3xl p-6 border border-emerald-400/15 bg-slate-950/90 shadow-[0_28px_90px_rgba(16,185,129,0.12)]">
-          <p class="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">Business</p>
-          <p class="mt-4 text-3xl font-semibold text-white">Unlimited plan</p>
-          <p class="mt-2 text-slate-400">Perfect for growing brands that need a polished store and faster launch.</p>
-          <ul class="mt-6 space-y-3 text-sm text-slate-300">
-            <li>• Unlimited Products</li>
-            <li>• Custom Branding</li>
-            <li>• Premium Design</li>
-            <li>• Faster Setup</li>
+        <article class="plan-card plan-highlight rounded-3xl p-6 border border-emerald-400/15 bg-slate-950/90 shadow-[0_28px_90px_rgba(16,185,129,0.12)] card-hover">
+          <div class="flex items-center justify-between gap-3">
+            <p class="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">Business</p>
+            <span class="plan-badge">Recommended</span>
+          </div>
+          <p class="mt-4 text-3xl font-semibold text-white">Unlimited Products</p>
+          <p class="mt-3 text-slate-400">Perfect for growing brands that need a polished store and faster launch.</p>
+          <ul class="mt-6 space-y-3 text-sm text-slate-300 plan-feature-list">
+            <li>Unlimited Products</li>
+            <li>Custom Branding</li>
+            <li>Premium Design</li>
+            <li>Faster Setup</li>
           </ul>
-          <a href="#" class="mt-8 inline-flex btn-primary justify-center w-full py-3 text-sm font-semibold">Select Business</a>
+          <a id="select-business" href="#" role="button" class="mt-8 inline-flex btn-primary justify-center w-full py-3 text-sm font-semibold" aria-label="Select Business plan">Select Business</a>
         </article>
-        <article class="plan-card glass-card rounded-3xl p-6">
+        <article class="plan-card glass-card rounded-3xl p-6 card-hover">
           <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Premium</p>
           <p class="mt-4 text-3xl font-semibold text-white">Advanced</p>
-          <p class="mt-2 text-slate-400">For businesses that want full customization and priority support.</p>
-          <ul class="mt-6 space-y-3 text-sm text-slate-300">
-            <li>• Everything included</li>
-            <li>• Advanced Customization</li>
-            <li>• Priority Support</li>
-            <li>• Custom Requirements</li>
+          <p class="mt-3 text-slate-400">Everything included with priority setup and advanced customization.</p>
+          <ul class="mt-6 space-y-3 text-sm text-slate-300 plan-feature-list">
+            <li>Everything included</li>
+            <li>Priority Setup</li>
+            <li>Advanced Customization</li>
+            <li>Custom Requirements</li>
           </ul>
-          <a href="#" class="mt-8 inline-flex btn-secondary justify-center w-full py-3 text-sm font-semibold">Talk to sales</a>
+          <a id="talk-sales" href="#" role="button" class="mt-8 inline-flex btn-secondary justify-center w-full py-3 text-sm font-semibold" aria-label="Talk to sales">Talk to sales</a>
         </article>
       </div>
     </section>
@@ -402,13 +468,13 @@
         <p class="mt-4 text-slate-400 max-w-lg mx-auto leading-relaxed">
           We design, build, and connect your storefront to WhatsApp—so you start receiving orders, not just views.
         </p>
-        <a id="final-cta" href="#" class="mt-8 inline-flex btn-primary px-8 py-4 text-base">Get Yours in 48 Hours</a>
-        <p class="mt-4 text-xs text-slate-500">WhatsApp: <span data-phone-display></span> · Reply within business hours</p>
+        <a id="final-cta" href="#" role="button" class="mt-8 inline-flex btn-primary px-7 py-3 text-base">Get Yours in 48 Hours</a>
+        <p class="mt-4 text-xs text-slate-500">WhatsApp: <span data-phone-display></span> · Typical reply within business hours</p>
       </div>
     </section>
   </main>
 
-  <a id="floating-wa" class="floating-wa" href="#" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
+  <a id="floating-wa" class="floating-wa" href="#" role="button" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
@@ -416,8 +482,8 @@
     <div class="max-w-6xl mx-auto px-4 py-10 sm:py-12">
       <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         <div class="sm:col-span-2 lg:col-span-1">
-          <a href="#" class="inline-flex items-center gap-3">
-            <img src="logo.svg" alt="" width="40" height="40" class="h-10 w-10 rounded-lg border border-white/10" />
+          <a href="#main-content" class="inline-flex items-center gap-3" aria-label="WhatsOrderNG home">
+            <img src="logo.svg" alt="WhatsOrderNG logo" width="40" height="40" class="h-10 w-10 rounded-lg border border-white/10" />
             <span class="font-bold text-white">WhatsOrderNG</span>
           </a>
           <p class="mt-4 text-sm text-slate-400 leading-relaxed max-w-xs">
@@ -425,7 +491,7 @@
           </p>
         </div>
         <div>
-          <p class="text-sm font-semibold text-white">Navigate</p>
+          <p class="text-sm font-semibold text-white">Quick Links</p>
           <ul class="mt-4 space-y-2.5 text-sm">
             <li><a href="#products" class="text-slate-400 hover:text-white transition">Products</a></li>
             <li><a href="#how" class="text-slate-400 hover:text-white transition">How it works</a></li>
@@ -436,10 +502,10 @@
         <div>
           <p class="text-sm font-semibold text-white">Contact</p>
           <ul class="mt-4 space-y-2.5 text-sm">
-            <li><a id="footer-whatsapp" href="#" class="text-emerald-400 hover:text-emerald-300 transition">WhatsApp us</a></li>
-            <li><a href="mailto:hello@whatsorderng.com" class="text-slate-400 hover:text-white transition">hello@whatsorderng.com</a></li>
+            <li><a id="footer-whatsapp" href="#" role="button" aria-label="WhatsApp us" class="text-emerald-400 hover:text-emerald-300 transition">WhatsApp us</a></li>
+            <li><a href="mailto:kingbitenterprise@gmail.com" class="text-slate-400 hover:text-white transition">kingbitenterprise@gmail.com</a></li>
             <li>
-              <a href="https://instagram.com/whatsorderng" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition">Instagram</a>
+              <a href="https://instagram.com/kingbitenterprise" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition">Instagram</a>
             </li>
             <li><a data-phone-tel href="#" class="text-slate-400 hover:text-white transition"><span data-phone-display></span></a></li>
           </ul>

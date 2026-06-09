@@ -1,0 +1,17 @@
+{
+  "phoneNumber": "+2347040155877",
+  "emailCapture": {
+    "form": {
+      "fields": {
+        "email": {
+          "type": "email",
+          "placeholder": "Enter your email",
+          "required": true
+        }
+      },
+      "submitButton": {
+        "text": "Subscribe"
+      }
+    }
+  }
+}
